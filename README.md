@@ -33,3 +33,6 @@ https://intime.ua/upload/images/document/api_3_0.pdf
 7. Получение информации по упаковке
 	* get_box_list
 	* get_box_id
+
+# Библиотеки
+1. https://github.com/meng-tian/async-soap-guzzle
