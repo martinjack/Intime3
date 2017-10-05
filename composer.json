@@ -1,0 +1,18 @@
+{
+    "name": "jackmartin/api3intime",
+    "description": "API InTime 3 version",
+    "authors": [
+        {
+            "name": "Jack Martin",
+            "email": "killfess@gmail.com"
+        }
+    ],
+    "autoload": {
+    	"psr-4": {
+    		"InTime\\" : "src/"
+    	}
+    },
+    "require": {
+    	"meng-tian/async-soap-guzzle": "^0.2.4"
+    }
+}

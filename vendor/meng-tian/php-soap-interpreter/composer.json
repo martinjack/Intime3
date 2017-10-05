@@ -1,0 +1,21 @@
+{
+    "name": "meng-tian/php-soap-interpreter",
+    "description": "A PHP library for interpreting SOAP messages.",
+    "keywords": ["SOAP"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Meng Tian",
+            "email": "tianmeng94@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.8"
+    },
+    "autoload": {
+        "psr-4": {"Meng\\Soap\\": "src/"}
+    }
+}
