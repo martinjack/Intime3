@@ -61,8 +61,6 @@ class InTime3
 	**/
 	public function __construct($api_key, $print = true, $debug = false)
 	{
-		
-
 		$this->print 	=	$print;
 		$this->debug 	=	$debug;
 		$factory 		= 	new Factory();
