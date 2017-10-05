@@ -1,7 +1,7 @@
 <?php
 /**
 *	module: InTime API 3 
-*	author: Jack Martin
+*	author: Evgenij Kitonin
 *	version: 1
 *	create: 05.10.2017
 **/
@@ -130,7 +130,7 @@ class InTime3
 	/**
 	*
 	*	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО КРАЇНІ
- 	*	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПОСТРАНЕ
+ 	*	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СТРАНЕ
  	*	@param RECEIVING INFORMATION BY COUNTRY
 	*	
 	**/
@@ -150,11 +150,11 @@ class InTime3
 	*	@param OBTAINING INFORMATION BY REGION
 	*
 	**/
-	public function get_area_by_list()
+	public function get_area_list()
 	{
 		return $this->requestData('get_area_by_id', null);
 	}
-	public function get_area_by_id($id)
+	public function get_area_id($id)
 	{
 		$argv['get_area_by_id']['id']	=	$id;
 		return $this->requestData('get_area_by_id', $argv);
