@@ -9,6 +9,7 @@ https://intime.ua/upload/images/document/api_3_0.pdf
 # Требование
 
 * PHP не ниже 5.6
+* Composer
 
 # Методы API
 
