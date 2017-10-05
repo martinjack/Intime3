@@ -1,10 +1,10 @@
-# Документация 
-
-https://intime.ua/upload/images/document/api_3_0.pdf
-
 # Описание
 
 PHP класс для работы с почтой Intime
+
+# Документация 
+
+https://intime.ua/upload/images/document/api_3_0.pdf
 
 # Требование
 
