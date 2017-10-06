@@ -39,7 +39,6 @@ https://intime.ua/upload/images/document/api_3_0.pdf
 	* get_branch_work_hours_id
 
 # Пример
-1.
 ```php
 <?php
 use InTime\InTime3;
