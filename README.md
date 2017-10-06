@@ -35,5 +35,17 @@ https://intime.ua/upload/images/document/api_3_0.pdf
 	* get_box_list
 	* get_box_id
 
+# Пример
+```php
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_country_list());
+```
+
 # Библиотеки
 1. https://github.com/meng-tian/async-soap-guzzle
