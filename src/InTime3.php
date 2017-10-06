@@ -117,10 +117,13 @@ class InTime3
      *	@return $data;
      *
      **/
-    private function requestData($method, $argv)
+    private function requestData($method, $argv, $id = 0)
     {
         $argv[$method]['api_key'] = $this->api_key;
         
+        if ($id != 0)
+            $argv[$method]['id'] = $id;
+
         $request = $this->client->call($method, $argv);
         
         return $this->prepare($request);
@@ -138,8 +141,7 @@ class InTime3
     }
     public function get_country_id($id)
     {
-        $argv['get_country_by_id']['id'] = $id;
-        return $this->requestData('get_country_by_id', $argv);
+        return $this->requestData('get_country_by_id', null, $id);
     }
     /**
      *
@@ -154,14 +156,13 @@ class InTime3
     }
     public function get_area_id($id)
     {
-        $argv['get_area_by_id']['id'] = $id;
-        return $this->requestData('get_area_by_id', $argv);
+        return $this->requestData('get_area_by_id', null, $id);
     }
     /**
      *
      *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО РАЙОНАМ
      *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО РАЙОНАМ
-     *	@param 
+     *	@param OBTAINING INFORMATION ON AREAS
      *
      **/
     public function get_district_list()
@@ -170,14 +171,13 @@ class InTime3
     }
     public function get_district_id($id)
     {
-        $argv['get_district_by_id']['id'] = $id;
-        return $this->requestData('get_district_by_id', $id);
+        return $this->requestData('get_district_by_id', null, $id);
     }
     /**
      *
      *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО НАСЕЛЕНОМУ ПУНКТУ
      *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО НАСЕЛЕННЫМ ПУНКТАМ
-     *	@param
+     *	@param OBTAINING INFORMATION ON HUMAN SETTLEMENTS
      *
      **/
     public function get_locality_list()
@@ -186,14 +186,13 @@ class InTime3
     }
     public function get_locality_id($id)
     {
-        $argv['get_locality_by_id']['id'] = $id;
-        return $this->requestData('get_locality_by_id', $argv);
+        return $this->requestData('get_locality_by_id', null, $id);
     }
     /**
      *
      *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО СКЛАДАМ/ ПОШТОМАТАМ
      *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СКЛАДУ / ПОШТОМАТАМ
-     *	@param
+     *	@param OBTAINING INFORMATION ON WAREHOUSE / STANDINGS
      *	
      **/
     public function get_branch_list()
@@ -202,14 +201,13 @@ class InTime3
     }
     public function get_branch_id($id)
     {
-        $argv['get_branch_by_id']['id'] = $id;
-        return $this->requestData('get_branch_by_id', $argv);
+        return $this->requestData('get_branch_by_id', null, $id);
     }
     /**
      *
      *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОПИСУ ВАНТАЖУ
      *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОПИСАНИЯ ГРУЗА
-     *	@param
+     *	@param OBTAINING INFORMATION ON THE DESCRIPTION OF GOODS
      *
      **/
     public function get_goods_desc_list()
@@ -218,14 +216,13 @@ class InTime3
     }
     public function get_goods_desc_id($id)
     {
-        $argv['get_goods_desc_by_id']['id'] = $id;
-        return $this->requestData('get_goods_desc_by_id', $argv);
+        return $this->requestData('get_goods_desc_by_id', null, $id);
     }
     /**
      *
      *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО ПАКУВАННЮ
      *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО УПАКОВКЕ
-     *	@param
+     *	@param RECEIPT OF PACKAGING INFORMATION
      *	
      **/
     public function get_box_list()
@@ -234,8 +231,7 @@ class InTime3
     }
     public function get_box_id($id)
     {
-        $argv['get_box_by_id']['id'] = $id;
-        return $this->requestData('get_box_by_id', $argv);
+        return $this->requestData('get_box_by_id', null, $id);
     }
     /**
      *
