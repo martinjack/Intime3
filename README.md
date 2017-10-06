@@ -37,6 +37,7 @@ https://intime.ua/upload/images/document/api_3_0.pdf
 
 # Пример
 ```php
+<?php
 use InTime\InTime3;
 
 include_once 'vendor/autoload.php';
@@ -45,6 +46,9 @@ include_once 'vendor/autoload.php';
 $intime = new InTime3('API_KEY');
 
 print_r($intime->get_country_list());
+/**
+{"Entry_get_country_by_id":[{"id":"213","name_ua":"УЕЛЬС","name_en":"WALES","name_ru":"УЭЛЬС","short_name_ua":"УЕЛЬС","short_name_en":"WALES","short_name_ru":"УЭЛЬС","code":"000000213","last_change":"2017-08-30T21:04:00.000+03:00","status":"1"},{"id":"214","name_ua":"УЗБЕКИСТАН","name_en":"UZBEKISTAN","name_ru":"УЗБЕКИСТАН","short_name_ua":"УЗБЕКИСТАН","short_name_en":"UZBEKISTAN","short_name_ru":"УЗБЕКИСТАН","code":"000000214","last_change":"2017-05-11T21:10:00.000+03:00","status":"1"}
+**/
 ```
 
 # Библиотеки
