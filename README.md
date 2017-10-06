@@ -34,7 +34,7 @@ https://intime.ua/upload/images/document/api_3_0.pdf
 7. Получение информации по упаковке
 	* get_box_list
 	* get_box_id
-8. Получения графику работы склада
+8. Получения графика работы склада
 	* get_branch_work_hours
 	* get_branch_work_hours_id
 

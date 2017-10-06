@@ -278,7 +278,7 @@ class InTime3
     /**
     *
     *   @param ОТРИМАННЯ ГРАФІКУ РОБОТИ СКЛАДУ
-    *   @param ПОЛУЧЕНИЯ ГРАФИКУ РАБОТЫ СКЛАДА
+    *   @param ПОЛУЧЕНИЯ ГРАФИКА РАБОТЫ СКЛАДА
     *   @param GETTING SCHEDULES FOR THE WAREHOUSE
     *   
     **/
