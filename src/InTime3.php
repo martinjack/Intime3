@@ -1,7 +1,7 @@
 <?php
 /**
  *	module: InTime API 3 
- *	author: Evgenij Kitonin
+ *	author: Evgen Kitonin
  *	version: 1
  *	create: 05.10.2017
  **/
