@@ -237,42 +237,57 @@ class InTime3
      *
      *	@param СТВОРЕННЯ ЗАЯВКИ ТТН
      *	@param СОЗДАНИЕ ЗАЯВКИ ТТН 
-     *	@param 
+     *	@param CREATING A TTN APPLICATION
      *
      **/
     public function declaration_create($data = array())
     {
-        $argv['declaration_insert_update']['locality_id']              = $data[''];
-        $argv['declaration_insert_update']['sender_warehouse']         = $data[''];
-        $argv['declaration_insert_update']['sender_address']           = $data[''];
-        $argv['declaration_insert_update']['receiver_okpo']            = $data[''];
-        $argv['declaration_insert_update']['receiver_company_name']    = $data[''];
-        $argv['declaration_insert_update']['receiver_cellphone']       = $data[''];
-        $argv['declaration_insert_update']['receiver_lastname']        = $data[''];
-        $argv['declaration_insert_update']['receiver_firstname']       = $data[''];
-        $argv['declaration_insert_update']['receiver_patronymic']      = $data[''];
-        $argv['declaration_insert_update']['receiver_locality_id']     = $data[''];
-        $argv['declaration_insert_update']['receiver_warehouse_id']    = $data[''];
-        $argv['declaration_insert_update']['receiver_address']         = $data[''];
-        $argv['declaration_insert_update']['payment_type_id']          = $data[''];
-        $argv['declaration_insert_update']['payer_type_id']            = $data[''];
-        $argv['declaration_insert_update']['return_day']               = $data[''];
-        $argv['declaration_insert_update']['cost_return']              = $data[''];
-        $argv['declaration_insert_update']['cash_on_delivery_sum']     = $data[''];
-        $argv['declaration_insert_update']['client_doc_id']            = $data[''];
-        $argv['declaration_insert_update']['cancel_packing']           = $data[''];
-        $argv['declaration_insert_update']['sender_paid_sum']          = $data[''];
-        $argv['declaration_insert_update']['third_party_okpo']         = $data[''];
-        $argv['declaration_insert_update']['third_party_company_name'] = $data[''];
-        $argv['declaration_insert_update']['third_party_cellphone']    = $data[''];
-        $argv['declaration_insert_update']['third_party_lastname']     = $data[''];
-        $argv['declaration_insert_update']['third_party_firstname']    = $data[''];
-        $argv['declaration_insert_update']['third_party_patronymic']   = $data[''];
-        $argv['declaration_insert_update']['third_patry_store_id']     = $data[''];
-        $argv['declaration_insert_update']['third_party_address']      = $data[''];
-        $argv['declaration_insert_update']['packages']                 = $data[''];
-        $argv['declaration_insert_update']['commands']                 = $data[''];
-        $argv['declaration_insert_update']['containers']               = $data[''];
-        $argv['declaration_insert_update']['seats']                    = $data[''];
+        $argv['declaration_insert_update']['locality_id']              =    $data['locality_id'];
+        $argv['declaration_insert_update']['sender_warehouse']         =    $data['sender_warehouse'];
+        $argv['declaration_insert_update']['sender_address']           =    strlen($data['sender_address']) > 0 ? $data['sender_address'] : '';
+        $argv['declaration_insert_update']['receiver_okpo']            =    strlen($data['receiver_okpo']) ? $data['receiver_okpo'] : '';
+        $argv['declaration_insert_update']['receiver_company_name']    =    strlen($data['receiver_company_name']) ? $data['receiver_company_name'] : '';
+        $argv['declaration_insert_update']['receiver_cellphone']       =    $data['receiver_cellphone'];
+        $argv['declaration_insert_update']['receiver_lastname']        =    $data['receiver_lastname'];
+        $argv['declaration_insert_update']['receiver_firstname']       =    $data['receiver_firstname'];
+        $argv['declaration_insert_update']['receiver_patronymic']      =    $data['receiver_patronymic'];
+        $argv['declaration_insert_update']['receiver_locality_id']     =    $data['receiver_locality_id'];
+        $argv['declaration_insert_update']['receiver_warehouse_id']    =    $data['receiver_warehouse_id'];
+        $argv['declaration_insert_update']['receiver_address']         =    strlen($data['receiver_address']) > ? $data['receiver_address'] : '';
+        $argv['declaration_insert_update']['payment_type_id']          =    $data['payment_type_id'];
+        $argv['declaration_insert_update']['payer_type_id']            =    $data['payer_type_id'];
+        $argv['declaration_insert_update']['return_day']               =    strlen($data['return_day']) ? $data['return_day'] : '';
+        $argv['declaration_insert_update']['cost_return']              =    $data['cost_return'];
+        $argv['declaration_insert_update']['cash_on_delivery_sum']     =    $data['cash_on_delivery_sum'];
+        $argv['declaration_insert_update']['client_doc_id']            =    $data['client_doc_id'];
+        $argv['declaration_insert_update']['cancel_packing']           =    $data['cancel_packing'];
+        $argv['declaration_insert_update']['sender_paid_sum']          =    strlen($data['sender_paid_sum']) > 0 ? $data['sender_paid_sum'] : '';
+        $argv['declaration_insert_update']['third_party_okpo']         =    strlen($data['third_party_okpo']) > 0 ? $data['third_party_okpo'] : '';
+        $argv['declaration_insert_update']['third_party_company_name'] =    strlen($data['third_party_company_name']) > 0 ? $data['third_party_company_name'] : '';
+        $argv['declaration_insert_update']['third_party_cellphone']    =    strlen($data['third_party_cellphone']) > 0 ? $data['third_party_cellphone'] : '';
+        $argv['declaration_insert_update']['third_party_lastname']     =    strlen($data['third_party_lastname']) > 0 ? $data['third_party_lastname'] : ''; 
+        $argv['declaration_insert_update']['third_party_firstname']    =    strlen($data['third_party_firstname']) > 0 ? $data['third_party_firstname'] : '';
+        $argv['declaration_insert_update']['third_party_patronymic']   =    strlen($data['third_party_patronymic']) > 0 ? $data['third_party_patronymic'] : '';
+        $argv['declaration_insert_update']['third_patry_store_id']     =    strlen($data['third_patry_store_id']) > 0 ? $data['third_patry_store_id'] : '';
+        $argv['declaration_insert_update']['third_party_address']      =    strlen($data['third_party_address']) > 0 ? $data['third_party_address'] : '';
+        $argv['declaration_insert_update']['packages']                 =    strlen($data['packages']) > 0 ? $data['packages'] : '';
+        $argv['declaration_insert_update']['commands']                 =    strlen($data['commands'] > 0) ? $data['commands'] : '';
+        $argv['declaration_insert_update']['containers']               =    strlen($data['containers']) > 0 ? $data['containers'] : '';
+        $argv['declaration_insert_update']['seats']                    =    $data['seats'];
+    }
+    /**
+    *
+    *   @param ОТРИМАННЯ ГРАФІКУ РОБОТИ СКЛАДУ
+    *   @param ПОЛУЧЕНИЯ ГРАФИКУ РАБОТЫ СКЛАДА
+    *   @param GETTING SCHEDULES FOR THE WAREHOUSE
+    *   
+    **/
+    public function get_branch_work_hours()
+    {
+        return $this->requestData('get_branch_work_hours', null);
+    }
+    public function get_branch_work_hours_id($id)
+    {
+        return $this->requestData('get_branch_work_hours', null, $id);
     }
 }
