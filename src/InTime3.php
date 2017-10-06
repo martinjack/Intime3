@@ -53,8 +53,10 @@ class InTime3
     private $debug = false;
     /**
      *
-     *	@param INIT CLASS
-     *	@return $this;
+     *	@param   string        $api_key    API KEY
+     *  @param   boolean       $print      PRINT DATA IN FORMAT ARRAY OR STD OBJECT  
+     *	
+     *  @return $this;
      *
      **/
     public function __construct($api_key, $print = true, $debug = false)
@@ -73,8 +75,10 @@ class InTime3
     {
     }
     /**
+     *  SET API KEY
      *
-     *	@param SET API KEY
+     *	@param   string         $api_key    API KEY
+     *
      *	@return $this;
      *
      **/
@@ -84,9 +88,11 @@ class InTime3
         return $this;
     }
     /**
+     *  PREPARE
      *
-     *	@param PREPARE
-     *	@return $data;
+     *	@param   string         $data       DATA RESPONSE
+     *
+     *	@return  $data;
      *
      **/
     private function prepare($data)
@@ -110,12 +116,15 @@ class InTime3
         }
     }
     /**
+     *  REQUEST DATA
      *
-     *	@param REQUEST DATA
+     *	@param   string         $method      METHOD REQUEST
+     *  @param   array          $argv        ARRAY DATA
+     *
      *	@return $data;
      *
      **/
-    private function requestData($method, $argv, $id = 0)
+    private function requestData($method, $argv = array(), $id = 0)
     {
         $argv[$method]['api_key'] = $this->api_key;
         
