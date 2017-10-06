@@ -253,7 +253,7 @@ class InTime3
         $argv['declaration_insert_update']['receiver_patronymic']      =    $data['receiver_patronymic'];
         $argv['declaration_insert_update']['receiver_locality_id']     =    $data['receiver_locality_id'];
         $argv['declaration_insert_update']['receiver_warehouse_id']    =    $data['receiver_warehouse_id'];
-        $argv['declaration_insert_update']['receiver_address']         =    strlen($data['receiver_address']) > ? $data['receiver_address'] : '';
+        $argv['declaration_insert_update']['receiver_address']         =    strlen($data['receiver_address']) > 0 ? $data['receiver_address'] : '';
         $argv['declaration_insert_update']['payment_type_id']          =    $data['payment_type_id'];
         $argv['declaration_insert_update']['payer_type_id']            =    $data['payer_type_id'];
         $argv['declaration_insert_update']['return_day']               =    strlen($data['return_day']) ? $data['return_day'] : '';
