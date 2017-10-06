@@ -14,8 +14,6 @@ namespace InTime;
 use GuzzleHttp\Client;
 use Meng\AsyncSoap\Guzzle\Factory;
 
-include_once __DIR__ . '/../vendor/autoload.php';
-
 class InTime3
 {
     /**
