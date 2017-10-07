@@ -40,7 +40,7 @@ PHP класс для работы с почтой Intime
 
 # Composer
 ```bash
-composer require jackmartin/api3intime
+composer require jackmartin/api3intime dev-master
 ```
 
 # Пример
