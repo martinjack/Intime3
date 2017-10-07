@@ -137,114 +137,147 @@ class InTime3
     }
     /**
      *
-     *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО КРАЇНІ
-     *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СТРАНЕ
-     *	@param RECEIVING INFORMATION BY COUNTRY
-     *	
+     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО КРАЇНІ
+     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СТРАНЕ
+     *  RECEIVING INFORMATION BY COUNTRY	
+     *
      **/
     public function get_country_list()
     {
         return $this->requestData('get_country_by_id', null);
     }
+    /**
+    *
+    *   @param int  $id     ID COUNTRY
+    *  
+    **/
     public function get_country_id($id)
     {
         return $this->requestData('get_country_by_id', null, $id);
     }
     /**
      *
-     *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОБЛАСТЯМ
-     *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОБЛАСТЯМ
-     *	@param OBTAINING INFORMATION BY REGION
+     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОБЛАСТЯМ
+     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОБЛАСТЯМ
+     *  OBTAINING INFORMATION BY REGION
      *
      **/
     public function get_area_list()
     {
         return $this->requestData('get_area_by_id', null);
     }
+    /**
+    *   @param  int         $id     ID AREA
+    **/
     public function get_area_id($id)
     {
         return $this->requestData('get_area_by_id', null, $id);
     }
     /**
      *
-     *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО РАЙОНАМ
-     *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО РАЙОНАМ
-     *	@param OBTAINING INFORMATION ON AREAS
+     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО РАЙОНАМ
+     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО РАЙОНАМ
+     *  OBTAINING INFORMATION ON AREAS
      *
      **/
     public function get_district_list()
     {
         return $this->requestData('get_district_by_id', null);
     }
+    /**
+    *
+    *   @param  int         $id      ID DISTRICT
+    *
+    **/
     public function get_district_id($id)
     {
         return $this->requestData('get_district_by_id', null, $id);
     }
     /**
      *
-     *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО НАСЕЛЕНОМУ ПУНКТУ
-     *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО НАСЕЛЕННЫМ ПУНКТАМ
-     *	@param OBTAINING INFORMATION ON HUMAN SETTLEMENTS
+     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО НАСЕЛЕНОМУ ПУНКТУ
+     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО НАСЕЛЕННЫМ ПУНКТАМ
+     *  OBTAINING INFORMATION ON HUMAN SETTLEMENTS
      *
      **/
     public function get_locality_list()
     {
         return $this->requestData('get_locality_by_id', null);
     }
+    /**
+    *
+    *   @param  int  $id     ID LOCALITY
+    *
+    **/
     public function get_locality_id($id)
     {
         return $this->requestData('get_locality_by_id', null, $id);
     }
     /**
      *
-     *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО СКЛАДАМ/ ПОШТОМАТАМ
-     *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СКЛАДУ / ПОШТОМАТАМ
-     *	@param OBTAINING INFORMATION ON WAREHOUSE / STANDINGS
+     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО СКЛАДАМ/ ПОШТОМАТАМ
+     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СКЛАДУ / ПОШТОМАТАМ
+     *  OBTAINING INFORMATION ON WAREHOUSE / STANDINGS
      *	
      **/
     public function get_branch_list()
     {
         return $this->requestData('get_branch_by_id', null);
     }
+    /**
+    *
+    *   @param  int     $id     ID BRANCH
+    *
+    **/
     public function get_branch_id($id)
     {
         return $this->requestData('get_branch_by_id', null, $id);
     }
     /**
      *
-     *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОПИСУ ВАНТАЖУ
-     *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОПИСАНИЯ ГРУЗА
-     *	@param OBTAINING INFORMATION ON THE DESCRIPTION OF GOODS
+     *	ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОПИСУ ВАНТАЖУ
+     *	ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОПИСАНИЯ ГРУЗА
+     *	OBTAINING INFORMATION ON THE DESCRIPTION OF GOODS
      *
      **/
     public function get_goods_desc_list()
     {
         return $this->requestData('get_goods_desc_by_id', null);
     }
+    /**
+    *
+    *   @param  int     $id     ID GOODS DESC   
+    *
+    **/
     public function get_goods_desc_id($id)
     {
         return $this->requestData('get_goods_desc_by_id', null, $id);
     }
     /**
      *
-     *	@param ОТРИМАННЯ ІНФОРМАЦІЇ ПО ПАКУВАННЮ
-     *	@param ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО УПАКОВКЕ
-     *	@param RECEIPT OF PACKAGING INFORMATION
+     *	ОТРИМАННЯ ІНФОРМАЦІЇ ПО ПАКУВАННЮ
+     *	ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО УПАКОВКЕ
+     *	RECEIPT OF PACKAGING INFORMATION
      *	
      **/
     public function get_box_list()
     {
         return $this->requestData('get_box_by_id', null);
     }
+    /**
+    *
+    *   @param  int     $id     ID BOX
+    *
+    **/
     public function get_box_id($id)
     {
         return $this->requestData('get_box_by_id', null, $id);
     }
     /**
      *
-     *	@param СТВОРЕННЯ ЗАЯВКИ ТТН
-     *	@param СОЗДАНИЕ ЗАЯВКИ ТТН 
-     *	@param CREATING A TTN APPLICATION
+     *  СТВОРЕННЯ ЗАЯВКИ ТТН
+     *  СОЗДАНИЕ ЗАЯВКИ ТТН 
+     *  CREATING A TTN APPLICATION
      *
      **/
     public function declaration_create($data = array())
@@ -284,15 +317,20 @@ class InTime3
     }
     /**
     *
-    *   @param ОТРИМАННЯ ГРАФІКУ РОБОТИ СКЛАДУ
-    *   @param ПОЛУЧЕНИЯ ГРАФИКА РАБОТЫ СКЛАДА
-    *   @param GETTING SCHEDULES FOR THE WAREHOUSE
+    *  ОТРИМАННЯ ГРАФІКУ РОБОТИ СКЛАДУ
+    *  ПОЛУЧЕНИЯ ГРАФИКА РАБОТЫ СКЛАДА
+    *  GETTING SCHEDULES FOR THE WAREHOUSE
     *   
     **/
     public function get_branch_work_hours()
     {
         return $this->requestData('get_branch_work_hours', null);
     }
+    /**
+    *
+    *   @param  int     $id     ID BRANCH_WORK
+    *
+    **/
     public function get_branch_work_hours_id($id)
     {
         return $this->requestData('get_branch_work_hours', null, $id);

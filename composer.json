@@ -1,6 +1,7 @@
 {
     "name": "jackmartin/api3intime",
     "description": "API InTime 3 version",
+    "license": "MIT",
     "authors": [
         {
             "name": "Jack Martin",
