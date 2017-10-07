@@ -14,7 +14,7 @@ PHP класс для работы с почтой Intime
 # Методы API
 
 1. Получение информации по стране  
-	- get_country_list
+	* get_country_list
 	* get_country_id
 2. Получение информации по областям
 	* get_area_list
