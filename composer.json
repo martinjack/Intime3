@@ -14,7 +14,6 @@
     		"InTime\\" : "src/"
     	}
     },
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.6",
     	"meng-tian/async-soap-guzzle": "^0.2.4"
