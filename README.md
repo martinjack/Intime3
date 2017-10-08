@@ -48,7 +48,7 @@ PHP класс для работы с почтой Intime
 16. Получить график работы склада по ID
 	* [get_branch_work_id](https://github.com/martinjack/Intime3#get_branch_work_idid)
 17. Получить список историй ТТН
-	* [declStatus]()
+	* [declStatus](https://github.com/martinjack/Intime3#declstatusnumber)
 
 # Composer
 ```bash
