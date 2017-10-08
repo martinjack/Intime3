@@ -13,37 +13,50 @@ PHP класс для работы с почтой Intime
 
 # Методы API
 
-1. Получение информации по стране  
-	* get_country_list
-	* get_country_id
-2. Получение информации по областям
-	* get_area_list
-	* get_area_id
-3. Получение информации по районам
-	* get_district_list
-	* get_district_id
-4. Получение информации по населенным пунктам
-	* get_locality_list
-	* get_locality_id
-5. Получение информации по складу / поштоматам
-	* get_branch_list
-	* get_branch_id
-6. Получение информации по описания груза
-	* get_goods_desc_list
-	* get_goods_desc_id
-7. Получение информации по упаковке
-	* get_box_list
-	* get_box_id
-8. Получения графика работы склада
-	* get_branch_work_hours
-	* get_branch_work_hours_id
+1. Полученить список стран  
+	* [get_country_list]()
+2. Получить информацию о стране по ID
+	* [get_country_id]()
+3. Получить список областей
+	* [get_area_list]()
+4. Получить информацию о областе по ID
+	* [get_area_id]()
+5. Получить список районов
+	* [get_district_list]()
+6. Получить информацию о районе по ID
+	* [get_district_id]()
+7. Получение список населенных пунктов
+	* [get_locality_list]()
+8. Получить информацию о населенным пункте по ID
+	* [get_locality_id]()
+9. Получение список складов / почтоматов
+	* [get_branch_list]()
+10. Получить информацию о складе / почтомат по ID
+	* [get_branch_id]()
+11. Получить список описания груза
+	* [get_goods_desc_list]()
+12. Получить описание груза по ID
+	* [get_goods_desc_id]()
+13. Получить список упаковки
+	* [get_box_list]()
+14. Получить упаковку по ID
+	* [get_box_id]()
+15. Получить список графика работы складов
+	* [get_branch_work_list]()
+16. Получить график работы склада по ID
+	* [get_branch_work_id]()
 
 # Composer
 ```bash
 composer require jackmartin/api3intime dev-master
 ```
 
+# Библиотеки
+1. [Soap-Guzzle](https://github.com/meng-tian/async-soap-guzzle)
+
 # Пример
+
+### get_country_list() ###
 ```php
 <?php
 use InTime\InTime3;
@@ -58,5 +71,202 @@ print_r($intime->get_country_list());
 //{"Entry_get_country_by_id":[{"id":"213","name_ua":"УЕЛЬС","name_en":"WALES","name_ru":"УЭЛЬС","short_name_ua":"УЕЛЬС","short_name_en":"WALES","short_name_ru":"УЭЛЬС","code":"000000213","last_change":"2017-08-30T21:04:00.000+03:00","status":"1"},{"id":"214","name_ua":"УЗБЕКИСТАН","name_en":"UZBEKISTAN","name_ru":"УЗБЕКИСТАН","short_name_ua":"УЗБЕКИСТАН","short_name_en":"UZBEKISTAN","short_name_ru":"УЗБЕКИСТАН","code":"000000214","last_change":"2017-05-11T21:10:00.000+03:00","status":"1"}
 ```
 
-# Библиотеки
-1. [Soap-Guzzle](https://github.com/meng-tian/async-soap-guzzle)
+### get_country_id($id) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_country_id(213));
+```
+
+### get_area_list() ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_area_list());
+```
+
+### get_area_id($id) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_area_id(1));
+```
+
+### get_district_list() ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_district_list());
+```
+
+### get_district_id($id) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_district_id(241));
+```
+
+### get_locality_list() ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_key');
+
+print_r($intime->get_locality_list());
+```
+
+### get_locality_id($id) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_locality_id(100));
+```
+
+### get_branch_list() ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_branch_list());
+```
+
+### get_branch_id($id) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_branch_id(328));
+```
+
+### get_goods_desc_list() ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_goods_desc_list());
+```
+
+### get_goods_desc_id($id) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_goods_desc_list());
+```
+
+### get_box_list() ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_box_list());
+```
+
+### get_box_id($id) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_box_id(50));
+```
+
+### declaration_create($data = array()) ###
+```php
+
+```
+
+### get_branch_work_list() ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_branch_work_list());
+```
+
+### get_branch_work_id($id) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_branch_work_id(200));
+```

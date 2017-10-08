@@ -1,13 +1,9 @@
 <?php
 /**
- *	module: InTime API 3 
- *	author: Evgen Kitonin
- *	version: 1
- *	create: 05.10.2017
- **/
-
-/**
- *	@var github lib https://github.com/meng-tian/async-soap-guzzle
+ *    module: InTime API 3
+ *    author: Evgen Kitonin
+ *    version: 1.0
+ *    create: 05.10.2017
  **/
 namespace InTime;
 
@@ -17,45 +13,45 @@ use Meng\AsyncSoap\Guzzle\Factory;
 class InTime3
 {
     /**
-     *	API KEY STRING
+     *    API KEY STRING
      *
-     *	@var string api key
+     *    @var string api key
      *
      **/
     private $api_key = null;
     /**
-     *	CLASS CLIENT
+     *    CLASS CLIENT
      *
-     *	@var class
+     *    @var class
      *
      **/
     private $client = null;
     /**
-     *	API URL
+     *    API URL
      *
-     *	@var string
+     *    @var string
      *
      **/
     private $api = 'http://esb.intime.ua:8080/services/intime_api_3.0?wsdl';
     /**
-     *	PRINT DATA IN FORMAT ARRAY OR STD OBJECT
-     *	
-     *	@var boolean
+     *    PRINT DATA IN FORMAT ARRAY OR STD OBJECT
+     *
+     *    @var boolean
      *
      **/
     private $print = true;
     /**
-     *	DEBUG MODE
-     *	
-     *	@var boolean
-     *	
+     *    DEBUG MODE
+     *
+     *    @var boolean
+     *
      **/
     private $debug = false;
     /**
      *
-     *	@param   string        $api_key    API KEY
-     *  @param   boolean       $print      PRINT DATA IN FORMAT ARRAY OR STD OBJECT  
-     *	
+     *    @param   string        $api_key    API KEY
+     *  @param   boolean       $print      PRINT DATA IN FORMAT ARRAY OR STD OBJECT
+     *
      *  @return $this;
      *
      **/
@@ -65,10 +61,11 @@ class InTime3
         $this->debug  = $debug;
         $factory      = new Factory();
         $this->client = $factory->create(new Client(), $this->api);
-        
-        if ($this->debug)
+
+        if ($this->debug) {
             header("Content-Type: application/json;charset=utf-8");
-        
+        }
+
         return $this->setKey($api_key);
     }
     public function __destruct()
@@ -77,9 +74,9 @@ class InTime3
     /**
      *  SET API KEY
      *
-     *	@param   string         $api_key    API KEY
+     *    @param   string         $api_key    API KEY
      *
-     *	@return $this;
+     *    @return $this;
      *
      **/
     private function setKey($api_key)
@@ -90,56 +87,57 @@ class InTime3
     /**
      *  PREPARE
      *
-     *	@param   string         $data       DATA RESPONSE
+     *    @param   string         $data       DATA RESPONSE
      *
-     *	@return  $data;
+     *    @return  $data;
      *
      **/
     private function prepare($data)
     {
         if ($this->print) {
-            
+
             if ($this->debug) {
-                
+
                 return json_decode(json_encode($data, JSON_UNESCAPED_UNICODE), true);
-                
+
             } else {
-                
+
                 return json_encode($data, JSON_UNESCAPED_UNICODE);
-                
+
             }
-            
+
         } else {
-            
+
             return $data;
-            
+
         }
     }
     /**
      *  REQUEST DATA
      *
-     *	@param   string         $method      METHOD REQUEST
+     *    @param   string         $method      METHOD REQUEST
      *  @param   array          $argv        ARRAY DATA
      *
-     *	@return $data;
+     *    @return $data;
      *
      **/
     private function requestData($method, $argv = array(), $id = 0)
     {
         $argv[$method]['api_key'] = $this->api_key;
-        
-        if ($id != 0)
+
+        if ($id != 0) {
             $argv[$method]['id'] = $id;
+        }
 
         $request = $this->client->call($method, $argv);
-        
+
         return $this->prepare($request);
     }
     /**
      *
      *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО КРАЇНІ
      *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СТРАНЕ
-     *  RECEIVING INFORMATION BY COUNTRY	
+     *  RECEIVING INFORMATION BY COUNTRY
      *
      **/
     public function get_country_list()
@@ -147,10 +145,10 @@ class InTime3
         return $this->requestData('get_country_by_id', null);
     }
     /**
-    *
-    *   @param int  $id     ID COUNTRY
-    *  
-    **/
+     *
+     *   @param int  $id     ID COUNTRY
+     *
+     **/
     public function get_country_id($id)
     {
         return $this->requestData('get_country_by_id', null, $id);
@@ -167,8 +165,8 @@ class InTime3
         return $this->requestData('get_area_by_id', null);
     }
     /**
-    *   @param  int         $id     ID AREA
-    **/
+     *   @param  int         $id     ID AREA
+     **/
     public function get_area_id($id)
     {
         return $this->requestData('get_area_by_id', null, $id);
@@ -185,10 +183,10 @@ class InTime3
         return $this->requestData('get_district_by_id', null);
     }
     /**
-    *
-    *   @param  int         $id      ID DISTRICT
-    *
-    **/
+     *
+     *   @param  int         $id      ID DISTRICT
+     *
+     **/
     public function get_district_id($id)
     {
         return $this->requestData('get_district_by_id', null, $id);
@@ -199,45 +197,46 @@ class InTime3
      *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО НАСЕЛЕННЫМ ПУНКТАМ
      *  OBTAINING INFORMATION ON HUMAN SETTLEMENTS
      *
+     *  @return string
      **/
     public function get_locality_list()
     {
         return $this->requestData('get_locality_by_id', null);
     }
     /**
-    *
-    *   @param  int  $id     ID LOCALITY
-    *
-    **/
+     *
+     *   @param  int  $id     ID LOCALITY
+     *
+     **/
     public function get_locality_id($id)
     {
         return $this->requestData('get_locality_by_id', null, $id);
     }
     /**
      *
-     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО СКЛАДАМ/ ПОШТОМАТАМ
-     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СКЛАДУ / ПОШТОМАТАМ
+     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО СКЛАДУ / ПОШТОМАТАМ
+     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СКЛАДУ / ПОЧТАМАТАМ
      *  OBTAINING INFORMATION ON WAREHOUSE / STANDINGS
-     *	
+     *
      **/
     public function get_branch_list()
     {
         return $this->requestData('get_branch_by_id', null);
     }
     /**
-    *
-    *   @param  int     $id     ID BRANCH
-    *
-    **/
+     *
+     *   @param  int     $id     ID BRANCH
+     *
+     **/
     public function get_branch_id($id)
     {
         return $this->requestData('get_branch_by_id', null, $id);
     }
     /**
      *
-     *	ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОПИСУ ВАНТАЖУ
-     *	ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОПИСАНИЯ ГРУЗА
-     *	OBTAINING INFORMATION ON THE DESCRIPTION OF GOODS
+     *    ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОПИСУ ВАНТАЖУ
+     *    ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОПИСАНИЯ ГРУЗА
+     *    OBTAINING INFORMATION ON THE DESCRIPTION OF GOODS
      *
      **/
     public function get_goods_desc_list()
@@ -245,30 +244,30 @@ class InTime3
         return $this->requestData('get_goods_desc_by_id', null);
     }
     /**
-    *
-    *   @param  int     $id     ID GOODS DESC   
-    *
-    **/
+     *
+     *   @param  int     $id     ID GOODS DESC
+     *
+     **/
     public function get_goods_desc_id($id)
     {
         return $this->requestData('get_goods_desc_by_id', null, $id);
     }
     /**
      *
-     *	ОТРИМАННЯ ІНФОРМАЦІЇ ПО ПАКУВАННЮ
-     *	ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО УПАКОВКЕ
-     *	RECEIPT OF PACKAGING INFORMATION
-     *	
+     *    ОТРИМАННЯ ІНФОРМАЦІЇ ПО ПАКУВАННЮ
+     *    ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО УПАКОВКЕ
+     *    RECEIPT OF PACKAGING INFORMATION
+     *
      **/
     public function get_box_list()
     {
         return $this->requestData('get_box_by_id', null);
     }
     /**
-    *
-    *   @param  int     $id     ID BOX
-    *
-    **/
+     *
+     *   @param  int     $id     ID BOX
+     *
+     **/
     public function get_box_id($id)
     {
         return $this->requestData('get_box_by_id', null, $id);
@@ -276,62 +275,62 @@ class InTime3
     /**
      *
      *  СТВОРЕННЯ ЗАЯВКИ ТТН
-     *  СОЗДАНИЕ ЗАЯВКИ ТТН 
+     *  СОЗДАНИЕ ЗАЯВКИ ТТН
      *  CREATING A TTN APPLICATION
      *
      **/
     public function declaration_create($data = array())
     {
-        $argv['declaration_insert_update']['locality_id']              =    $data['locality_id'];
-        $argv['declaration_insert_update']['sender_warehouse']         =    $data['sender_warehouse'];
-        $argv['declaration_insert_update']['sender_address']           =    strlen($data['sender_address']) > 0 ? $data['sender_address'] : '';
-        $argv['declaration_insert_update']['receiver_okpo']            =    strlen($data['receiver_okpo']) ? $data['receiver_okpo'] : '';
-        $argv['declaration_insert_update']['receiver_company_name']    =    strlen($data['receiver_company_name']) ? $data['receiver_company_name'] : '';
-        $argv['declaration_insert_update']['receiver_cellphone']       =    $data['receiver_cellphone'];
-        $argv['declaration_insert_update']['receiver_lastname']        =    $data['receiver_lastname'];
-        $argv['declaration_insert_update']['receiver_firstname']       =    $data['receiver_firstname'];
-        $argv['declaration_insert_update']['receiver_patronymic']      =    $data['receiver_patronymic'];
-        $argv['declaration_insert_update']['receiver_locality_id']     =    $data['receiver_locality_id'];
-        $argv['declaration_insert_update']['receiver_warehouse_id']    =    $data['receiver_warehouse_id'];
-        $argv['declaration_insert_update']['receiver_address']         =    strlen($data['receiver_address']) > 0 ? $data['receiver_address'] : '';
-        $argv['declaration_insert_update']['payment_type_id']          =    $data['payment_type_id'];
-        $argv['declaration_insert_update']['payer_type_id']            =    $data['payer_type_id'];
-        $argv['declaration_insert_update']['return_day']               =    strlen($data['return_day']) ? $data['return_day'] : '';
-        $argv['declaration_insert_update']['cost_return']              =    $data['cost_return'];
-        $argv['declaration_insert_update']['cash_on_delivery_sum']     =    $data['cash_on_delivery_sum'];
-        $argv['declaration_insert_update']['client_doc_id']            =    $data['client_doc_id'];
-        $argv['declaration_insert_update']['cancel_packing']           =    $data['cancel_packing'];
-        $argv['declaration_insert_update']['sender_paid_sum']          =    strlen($data['sender_paid_sum']) > 0 ? $data['sender_paid_sum'] : '';
-        $argv['declaration_insert_update']['third_party_okpo']         =    strlen($data['third_party_okpo']) > 0 ? $data['third_party_okpo'] : '';
-        $argv['declaration_insert_update']['third_party_company_name'] =    strlen($data['third_party_company_name']) > 0 ? $data['third_party_company_name'] : '';
-        $argv['declaration_insert_update']['third_party_cellphone']    =    strlen($data['third_party_cellphone']) > 0 ? $data['third_party_cellphone'] : '';
-        $argv['declaration_insert_update']['third_party_lastname']     =    strlen($data['third_party_lastname']) > 0 ? $data['third_party_lastname'] : ''; 
-        $argv['declaration_insert_update']['third_party_firstname']    =    strlen($data['third_party_firstname']) > 0 ? $data['third_party_firstname'] : '';
-        $argv['declaration_insert_update']['third_party_patronymic']   =    strlen($data['third_party_patronymic']) > 0 ? $data['third_party_patronymic'] : '';
-        $argv['declaration_insert_update']['third_patry_store_id']     =    strlen($data['third_patry_store_id']) > 0 ? $data['third_patry_store_id'] : '';
-        $argv['declaration_insert_update']['third_party_address']      =    strlen($data['third_party_address']) > 0 ? $data['third_party_address'] : '';
-        $argv['declaration_insert_update']['packages']                 =    strlen($data['packages']) > 0 ? $data['packages'] : '';
-        $argv['declaration_insert_update']['commands']                 =    strlen($data['commands'] > 0) ? $data['commands'] : '';
-        $argv['declaration_insert_update']['containers']               =    strlen($data['containers']) > 0 ? $data['containers'] : '';
-        $argv['declaration_insert_update']['seats']                    =    $data['seats'];
+        $argv['declaration_insert_update']['locality_id']              = $data['locality_id'];
+        $argv['declaration_insert_update']['sender_warehouse']         = $data['sender_warehouse'];
+        $argv['declaration_insert_update']['sender_address']           = strlen($data['sender_address']) > 0 ? $data['sender_address'] : '';
+        $argv['declaration_insert_update']['receiver_okpo']            = strlen($data['receiver_okpo']) ? $data['receiver_okpo'] : '';
+        $argv['declaration_insert_update']['receiver_company_name']    = strlen($data['receiver_company_name']) ? $data['receiver_company_name'] : '';
+        $argv['declaration_insert_update']['receiver_cellphone']       = $data['receiver_cellphone'];
+        $argv['declaration_insert_update']['receiver_lastname']        = $data['receiver_lastname'];
+        $argv['declaration_insert_update']['receiver_firstname']       = $data['receiver_firstname'];
+        $argv['declaration_insert_update']['receiver_patronymic']      = $data['receiver_patronymic'];
+        $argv['declaration_insert_update']['receiver_locality_id']     = $data['receiver_locality_id'];
+        $argv['declaration_insert_update']['receiver_warehouse_id']    = $data['receiver_warehouse_id'];
+        $argv['declaration_insert_update']['receiver_address']         = strlen($data['receiver_address']) > 0 ? $data['receiver_address'] : '';
+        $argv['declaration_insert_update']['payment_type_id']          = $data['payment_type_id'];
+        $argv['declaration_insert_update']['payer_type_id']            = $data['payer_type_id'];
+        $argv['declaration_insert_update']['return_day']               = strlen($data['return_day']) ? $data['return_day'] : '';
+        $argv['declaration_insert_update']['cost_return']              = $data['cost_return'];
+        $argv['declaration_insert_update']['cash_on_delivery_sum']     = $data['cash_on_delivery_sum'];
+        $argv['declaration_insert_update']['client_doc_id']            = $data['client_doc_id'];
+        $argv['declaration_insert_update']['cancel_packing']           = $data['cancel_packing'];
+        $argv['declaration_insert_update']['sender_paid_sum']          = strlen($data['sender_paid_sum']) > 0 ? $data['sender_paid_sum'] : '';
+        $argv['declaration_insert_update']['third_party_okpo']         = strlen($data['third_party_okpo']) > 0 ? $data['third_party_okpo'] : '';
+        $argv['declaration_insert_update']['third_party_company_name'] = strlen($data['third_party_company_name']) > 0 ? $data['third_party_company_name'] : '';
+        $argv['declaration_insert_update']['third_party_cellphone']    = strlen($data['third_party_cellphone']) > 0 ? $data['third_party_cellphone'] : '';
+        $argv['declaration_insert_update']['third_party_lastname']     = strlen($data['third_party_lastname']) > 0 ? $data['third_party_lastname'] : '';
+        $argv['declaration_insert_update']['third_party_firstname']    = strlen($data['third_party_firstname']) > 0 ? $data['third_party_firstname'] : '';
+        $argv['declaration_insert_update']['third_party_patronymic']   = strlen($data['third_party_patronymic']) > 0 ? $data['third_party_patronymic'] : '';
+        $argv['declaration_insert_update']['third_patry_store_id']     = strlen($data['third_patry_store_id']) > 0 ? $data['third_patry_store_id'] : '';
+        $argv['declaration_insert_update']['third_party_address']      = strlen($data['third_party_address']) > 0 ? $data['third_party_address'] : '';
+        $argv['declaration_insert_update']['packages']                 = strlen($data['packages']) > 0 ? $data['packages'] : '';
+        $argv['declaration_insert_update']['commands']                 = strlen($data['commands'] > 0) ? $data['commands'] : '';
+        $argv['declaration_insert_update']['containers']               = strlen($data['containers']) > 0 ? $data['containers'] : '';
+        $argv['declaration_insert_update']['seats']                    = $data['seats'];
     }
     /**
-    *
-    *  ОТРИМАННЯ ГРАФІКУ РОБОТИ СКЛАДУ
-    *  ПОЛУЧЕНИЯ ГРАФИКА РАБОТЫ СКЛАДА
-    *  GETTING SCHEDULES FOR THE WAREHOUSE
-    *   
-    **/
-    public function get_branch_work_hours()
+     *
+     *  ОТРИМАННЯ ГРАФІКУ РОБОТИ СКЛАДУ
+     *  ПОЛУЧЕНИЯ ГРАФИКА РАБОТЫ СКЛАДА
+     *  GETTING SCHEDULES FOR THE WAREHOUSE
+     *
+     **/
+    public function get_branch_work_list()
     {
         return $this->requestData('get_branch_work_hours', null);
     }
     /**
-    *
-    *   @param  int     $id     ID BRANCH_WORK
-    *
-    **/
-    public function get_branch_work_hours_id($id)
+     *
+     *   @param  int     $id     ID BRANCH_WORK
+     *
+     **/
+    public function get_branch_work_id($id)
     {
         return $this->requestData('get_branch_work_hours', null, $id);
     }
