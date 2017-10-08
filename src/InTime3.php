@@ -336,7 +336,6 @@ class InTime3
      *  РОЗРАХУНОК ВАРТОСТІ ДОСТАВКИ
      *  РАСЧЕТ СТОИМОСТИ ДОСТАВКИ
      *
-     *
      *  @param array    $data   DATA ARRAY
      *
      *  @return string
@@ -398,16 +397,20 @@ class InTime3
      *  GETTING SCHEDULES FOR THE WAREHOUSE
      *
      *  @return string
+     *
      **/
     public function get_branch_work_list()
     {
         return $this->requestData('get_branch_work_hours', null);
     }
     /**
+     *  ОТРИМАТИ ГРАФІК РОБОТИ СКЛАДА ПО ID
+     *  ПОЛУЧИТЬ ГРАФИК РАБОТЫ СКЛАДА ПО ID
      *
      *  @param  int     $id     ID BRANCH_WORK
      *
      *  @return string
+     *
      **/
     public function get_branch_work_id($id)
     {
