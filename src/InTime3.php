@@ -49,7 +49,7 @@ class InTime3
     private $debug = false;
     /**
      *
-     *    @param   string        $api_key    API KEY
+     *  @param   string        $api_key    API KEY
      *  @param   boolean       $print      PRINT DATA IN FORMAT ARRAY OR STD OBJECT
      *
      *  @return $this;
@@ -74,9 +74,9 @@ class InTime3
     /**
      *  SET API KEY
      *
-     *    @param   string         $api_key    API KEY
+     *  @param  string  $api_key    API KEY
      *
-     *    @return $this;
+     *  @return $this;
      *
      **/
     private function setKey($api_key)
@@ -87,9 +87,9 @@ class InTime3
     /**
      *  PREPARE
      *
-     *    @param   string         $data       DATA RESPONSE
+     *  @param  string  $data   DATA RESPONSE
      *
-     *    @return  $data;
+     *  @return  $data;
      *
      **/
     private function prepare($data)
@@ -115,15 +115,25 @@ class InTime3
     /**
      *  REQUEST DATA
      *
-     *    @param   string         $method      METHOD REQUEST
-     *  @param   array          $argv        ARRAY DATA
+     *  @param  string  $method METHOD REQUEST
+     *  @param  array   $argv   ARRAY DATA
+     *  @param  int     $id     ID ITEM
+     *  @param  boolean $key    TYPE API KEY
      *
      *    @return $data;
      *
      **/
-    private function requestData($method, $argv = array(), $id = 0)
+    private function requestData($method, $argv = array(), $id = 0, $key = true)
     {
-        $argv[$method]['api_key'] = $this->api_key;
+        if ($key) {
+
+            $argv[$method]['api_key'] = $this->api_key;
+
+        } else {
+
+            $argv[$method]['p_api_key'] = $this->api_key;
+
+        }
 
         if ($id != 0) {
             $argv[$method]['id'] = $id;
@@ -265,7 +275,10 @@ class InTime3
     }
     /**
      *
-     *   @param  int     $id     ID BOX
+     *
+     *  @param  int     $id     ID BOX
+     *
+     *  @return string
      *
      **/
     public function get_box_id($id)
@@ -278,6 +291,9 @@ class InTime3
      *  СОЗДАНИЕ ЗАЯВКИ ТТН
      *  CREATING A TTN APPLICATION
      *
+     *  @param  array   $data   DATA ARRAY
+     *
+     *  @return string
      **/
     public function declaration_create($data = array())
     {
@@ -313,6 +329,67 @@ class InTime3
         $argv['declaration_insert_update']['commands']                 = strlen($data['commands'] > 0) ? $data['commands'] : '';
         $argv['declaration_insert_update']['containers']               = strlen($data['containers']) > 0 ? $data['containers'] : '';
         $argv['declaration_insert_update']['seats']                    = $data['seats'];
+
+        return $this->requestData('declaration_insert_update', $argv);
+    }
+    /**
+     *  РОЗРАХУНОК ВАРТОСТІ ДОСТАВКИ
+     *  РАСЧЕТ СТОИМОСТИ ДОСТАВКИ
+     *
+     *
+     *  @param array    $data   DATA ARRAY
+     *
+     *  @return string
+     *
+     **/
+    public function declaration_calculate($data = array())
+    {
+        $argv['declaration_calculate']['p_sender_locality_id']    = $data[''];
+        $argv['declaration_calculate']['p_sender_warehouse_id']   = $data[''];
+        $argv['declaration_calculate']['p_sender_address']        = $data[''];
+        $argv['declaration_calculate']['p_receiver_okpo']         = $data[''];
+        $argv['declaration_calculate']['p_receiver_company_name'] = $data[''];
+        $argv['declaration_calculate']['p_receiver_cellphone']    = $data[''];
+        $argv['declaration_calculate']['p_receiver_lastname']     = $data[''];
+        $argv['declaration_calculate']['p_receiver_firstname']    = $data[''];
+        $argv['declaration_calculate']['p_receiver_patronymic']   = $data[''];
+        $argv['declaration_calculate']['p_receiver_locality_id']  = $data[''];
+        $argv['declaration_calculate']['p_receiver_warehouse_id'] = $data[''];
+        $argv['declaration_calculate']['p_receiver_address']      = $data[''];
+        $argv['declaration_calculate']['p_payment_type_id']       = $data[''];
+        $argv['declaration_calculate']['p_payer_type_id']         = $data[''];
+        $argv['declaration_calculate']['p_cost_return']           = $data[''];
+        $argv['declaration_calculate']['p_cod']                   = $data[''];
+        $argv['declaration_calculate']['p_perc_send']             = $data[''];
+        $argv['declaration_calculate']['p_part3_okpo']            = $data[''];
+        $argv['declaration_calculate']['p_part3_company_name']    = $data[''];
+        $argv['declaration_calculate']['p_part3_surname']         = $data[''];
+        $argv['declaration_calculate']['p_part3_firstname']       = $data[''];
+        $argv['declaration_calculate']['p_part3_patronymic']      = $data[''];
+        $argv['declaration_calculate']['p_city_p']                = $data[''];
+        $argv['declaration_calculate']['p_wh_p']                  = $data[''];
+        $argv['declaration_calculate']['p_adress_p']              = $data[''];
+        $argv['declaration_calculate']['p_clob_box']              = $data[''];
+        $argv['declaration_calculate']['p_clob_comparam']         = $data[''];
+        $argv['declaration_calculate']['p_clob_serv']             = $data[''];
+        $argv['declaration_calculate']['p_clob_seats']            = $data[''];
+
+        return $this->requestData('declaration_calculate', $argv, '', false);
+    }
+    /**
+     *  ОТРИМАННЯ ІСТОРІЇ СТАТУСІВ ПО ТТН
+     *  ПОЛУЧЕНИЕ ИСТОРИИ СТАТУС ПО ТТН
+     *
+     *  @param  string  $number     NUMBER TTN
+     *
+     *  @return string
+     *
+     **/
+    public function declStatus($number)
+    {
+        $argv['decl_status_history']['decl_num'] = $number;
+
+        return $this->requestData('decl_status_history', $argv);
     }
     /**
      *
@@ -320,6 +397,7 @@ class InTime3
      *  ПОЛУЧЕНИЯ ГРАФИКА РАБОТЫ СКЛАДА
      *  GETTING SCHEDULES FOR THE WAREHOUSE
      *
+     *  @return string
      **/
     public function get_branch_work_list()
     {
@@ -327,8 +405,9 @@ class InTime3
     }
     /**
      *
-     *   @param  int     $id     ID BRANCH_WORK
+     *  @param  int     $id     ID BRANCH_WORK
      *
+     *  @return string
      **/
     public function get_branch_work_id($id)
     {

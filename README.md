@@ -47,6 +47,8 @@ PHP класс для работы с почтой Intime
 	* [get_branch_work_list](https://github.com/martinjack/Intime3#get_branch_work_list)
 16. Получить график работы склада по ID
 	* [get_branch_work_id](https://github.com/martinjack/Intime3#get_branch_work_idid)
+17. Получить список историй ТТН
+	* [declStatus]()
 
 # Composer
 ```bash
@@ -271,4 +273,17 @@ include_once 'vendor/autoload.php';
 $intime = new InTime3('API_KEY');
 
 print_r($intime->get_branch_work_id(200));
+```
+
+### declStatus($number) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->declStatus('NUMBER_TTN'));
 ```
