@@ -11,6 +11,14 @@ PHP класс для работы с почтой Intime
 * PHP не ниже 5.6
 * Composer
 
+# Composer
+```bash
+composer require jackmartin/api3intime dev-master
+```
+
+# Библиотеки
+1. [Soap-Guzzle](https://github.com/meng-tian/async-soap-guzzle)
+
 # Методы API
 
 1. Полученить список стран  
@@ -49,14 +57,6 @@ PHP класс для работы с почтой Intime
 	* [get_branch_work_id](https://github.com/martinjack/Intime3#get_branch_work_idid)
 17. Получить список историй ТТН
 	* [declStatus](https://github.com/martinjack/Intime3#declstatusnumber)
-
-# Composer
-```bash
-composer require jackmartin/api3intime dev-master
-```
-
-# Библиотеки
-1. [Soap-Guzzle](https://github.com/meng-tian/async-soap-guzzle)
 
 # Пример
 
