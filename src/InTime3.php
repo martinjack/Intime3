@@ -243,11 +243,11 @@ class InTime3
         return $this->requestData('get_branch_by_id', null, $id);
     }
     /**
+     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОПИСУ ВАНТАЖУ
+     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОПИСАНИЯ ГРУЗА
+     *  OBTAINING INFORMATION ON THE DESCRIPTION OF GOODS
      *
-     *    ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОПИСУ ВАНТАЖУ
-     *    ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОПИСАНИЯ ГРУЗА
-     *    OBTAINING INFORMATION ON THE DESCRIPTION OF GOODS
-     *
+     *  @return string
      **/
     public function get_goods_desc_list()
     {
@@ -255,18 +255,20 @@ class InTime3
     }
     /**
      *
-     *   @param  int     $id     ID GOODS DESC
+     *  @param  int     $id     ID GOODS DESC
      *
+     *  @return string
      **/
     public function get_goods_desc_id($id)
     {
         return $this->requestData('get_goods_desc_by_id', null, $id);
     }
     /**
+     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО ПАКУВАННЮ
+     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО УПАКОВКЕ
+     *  RECEIPT OF PACKAGING INFORMATION
      *
-     *    ОТРИМАННЯ ІНФОРМАЦІЇ ПО ПАКУВАННЮ
-     *    ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО УПАКОВКЕ
-     *    RECEIPT OF PACKAGING INFORMATION
+     *  @return string
      *
      **/
     public function get_box_list()
@@ -274,7 +276,8 @@ class InTime3
         return $this->requestData('get_box_by_id', null);
     }
     /**
-     *
+     *  ОТРИМАТИ УПАКОВКУ ПО OD
+     *  ПОЛУЧИТЬ УПАКОВКУ ПО ID
      *
      *  @param  int     $id     ID BOX
      *
@@ -286,7 +289,6 @@ class InTime3
         return $this->requestData('get_box_by_id', null, $id);
     }
     /**
-     *
      *  СТВОРЕННЯ ЗАЯВКИ ТТН
      *  СОЗДАНИЕ ЗАЯВКИ ТТН
      *  CREATING A TTN APPLICATION
@@ -294,6 +296,7 @@ class InTime3
      *  @param  array   $data   DATA ARRAY
      *
      *  @return string
+     *
      **/
     public function declaration_create($data = array())
     {
@@ -391,7 +394,6 @@ class InTime3
         return $this->requestData('decl_status_history', $argv);
     }
     /**
-     *
      *  ОТРИМАННЯ ГРАФІКУ РОБОТИ СКЛАДУ
      *  ПОЛУЧЕНИЯ ГРАФИКА РАБОТЫ СКЛАДА
      *  GETTING SCHEDULES FOR THE WAREHOUSE
