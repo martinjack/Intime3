@@ -14,37 +14,39 @@ PHP класс для работы с почтой Intime
 # Методы API
 
 1. Полученить список стран  
-	* [get_country_list]()
+	* [get_country_list](https://github.com/martinjack/Intime3#get_country_list)
 2. Получить информацию о стране по ID
-	* [get_country_id]()
+	* [get_country_id](https://github.com/martinjack/Intime3#get_country_idid)
 3. Получить список областей
-	* [get_area_list]()
+	* [get_area_list](https://github.com/martinjack/Intime3#get_area_list)
 4. Получить информацию о областе по ID
-	* [get_area_id]()
+	* [get_area_id](https://github.com/martinjack/Intime3#get_area_idid)
 5. Получить список районов
-	* [get_district_list]()
+	* [get_district_list](https://github.com/martinjack/Intime3#get_district_list)
 6. Получить информацию о районе по ID
-	* [get_district_id]()
+	* [get_district_id](https://github.com/martinjack/Intime3#get_district_idid)
 7. Получение список населенных пунктов
-	* [get_locality_list]()
+	* [get_locality_list](https://github.com/martinjack/Intime3#get_locality_list)
 8. Получить информацию о населенным пункте по ID
-	* [get_locality_id]()
+	* [get_locality_id](https://github.com/martinjack/Intime3#get_locality_idid)
 9. Получение список складов / почтоматов
-	* [get_branch_list]()
+	* [get_branch_list](https://github.com/martinjack/Intime3#get_branch_list)
 10. Получить информацию о складе / почтомат по ID
-	* [get_branch_id]()
+	* [get_branch_id](https://github.com/martinjack/Intime3#get_branch_idid)
 11. Получить список описания груза
-	* [get_goods_desc_list]()
+	* [get_goods_desc_list](https://github.com/martinjack/Intime3#get_goods_desc_list)
 12. Получить описание груза по ID
-	* [get_goods_desc_id]()
+	* [get_goods_desc_id](https://github.com/martinjack/Intime3#get_goods_desc_idid)
 13. Получить список упаковки
-	* [get_box_list]()
+	* [get_box_list](https://github.com/martinjack/Intime3#get_box_list)
 14. Получить упаковку по ID
-	* [get_box_id]()
+	* [get_box_id](https://github.com/martinjack/Intime3#get_box_idid)
+15. Создать заявку ТТН
+	* [declaration_create](https://github.com/martinjack/Intime3#declaration_createdata--array)
 15. Получить список графика работы складов
-	* [get_branch_work_list]()
+	* [get_branch_work_list](https://github.com/martinjack/Intime3#get_branch_work_list)
 16. Получить график работы склада по ID
-	* [get_branch_work_id]()
+	* [get_branch_work_id](https://github.com/martinjack/Intime3#get_branch_work_idid)
 
 # Composer
 ```bash
