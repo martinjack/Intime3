@@ -328,7 +328,7 @@ class InTime3
         $argv['declaration_insert_update']['packages']                 = strlen($data['packages']) > 0 ? $data['packages'] : '';
         $argv['declaration_insert_update']['commands']                 = strlen($data['commands'] > 0) ? $data['commands'] : '';
         $argv['declaration_insert_update']['containers']               = strlen($data['containers']) > 0 ? $data['containers'] : '';
-        $argv['declaration_insert_update']['seats']                    = $data['seats'];
+        $argv['declaration_insert_update']['seats']                    = strlen($data['seats']) > 0 ? $data['seats'] : '';
 
         return $this->requestData('declaration_insert_update', $argv);
     }
@@ -344,35 +344,35 @@ class InTime3
      **/
     public function declaration_calculate($data = array())
     {
-        $argv['declaration_calculate']['p_sender_locality_id']    = $data[''];
-        $argv['declaration_calculate']['p_sender_warehouse_id']   = $data[''];
-        $argv['declaration_calculate']['p_sender_address']        = $data[''];
-        $argv['declaration_calculate']['p_receiver_okpo']         = $data[''];
-        $argv['declaration_calculate']['p_receiver_company_name'] = $data[''];
-        $argv['declaration_calculate']['p_receiver_cellphone']    = $data[''];
-        $argv['declaration_calculate']['p_receiver_lastname']     = $data[''];
-        $argv['declaration_calculate']['p_receiver_firstname']    = $data[''];
-        $argv['declaration_calculate']['p_receiver_patronymic']   = $data[''];
-        $argv['declaration_calculate']['p_receiver_locality_id']  = $data[''];
-        $argv['declaration_calculate']['p_receiver_warehouse_id'] = $data[''];
-        $argv['declaration_calculate']['p_receiver_address']      = $data[''];
-        $argv['declaration_calculate']['p_payment_type_id']       = $data[''];
-        $argv['declaration_calculate']['p_payer_type_id']         = $data[''];
-        $argv['declaration_calculate']['p_cost_return']           = $data[''];
-        $argv['declaration_calculate']['p_cod']                   = $data[''];
-        $argv['declaration_calculate']['p_perc_send']             = $data[''];
-        $argv['declaration_calculate']['p_part3_okpo']            = $data[''];
-        $argv['declaration_calculate']['p_part3_company_name']    = $data[''];
-        $argv['declaration_calculate']['p_part3_surname']         = $data[''];
-        $argv['declaration_calculate']['p_part3_firstname']       = $data[''];
-        $argv['declaration_calculate']['p_part3_patronymic']      = $data[''];
-        $argv['declaration_calculate']['p_city_p']                = $data[''];
-        $argv['declaration_calculate']['p_wh_p']                  = $data[''];
-        $argv['declaration_calculate']['p_adress_p']              = $data[''];
-        $argv['declaration_calculate']['p_clob_box']              = $data[''];
-        $argv['declaration_calculate']['p_clob_comparam']         = $data[''];
-        $argv['declaration_calculate']['p_clob_serv']             = $data[''];
-        $argv['declaration_calculate']['p_clob_seats']            = $data[''];
+        $argv['declaration_calculate']['p_sender_locality_id']    = $data['p_sender_locality_id'];
+        $argv['declaration_calculate']['p_sender_warehouse_id']   = strlen($data['p_sender_warehouse_id']) > 0 ? $data['p_sender_warehouse_id'] : '';
+        $argv['declaration_calculate']['p_sender_address']        = strlen($data['p_sender_address']) > 0 ? $data['p_sender_address'] : '';
+        $argv['declaration_calculate']['p_receiver_okpo']         = strlen($data['p_receiver_okpo']) > 0 ? $data['p_receiver_okpo'] : '';
+        $argv['declaration_calculate']['p_receiver_company_name'] = strlen($data['p_receiver_company_name']) > 0 ? $data['p_receiver_company_name'] : '';
+        $argv['declaration_calculate']['p_receiver_cellphone']    = $data['p_receiver_cellphone'];
+        $argv['declaration_calculate']['p_receiver_lastname']     = $data['p_receiver_lastname'];
+        $argv['declaration_calculate']['p_receiver_firstname']    = $data['p_receiver_firstname'];
+        $argv['declaration_calculate']['p_receiver_patronymic']   = strlen($data['p_receiver_patronymic']) > 0 ? $data['p_receiver_patronymic'] : '';
+        $argv['declaration_calculate']['p_receiver_locality_id']  = $data['p_receiver_locality_id'];
+        $argv['declaration_calculate']['p_receiver_warehouse_id'] = strlen($data['p_receiver_warehouse_id']) > 0 ? $data['p_receiver_warehouse_id'] : '';
+        $argv['declaration_calculate']['p_receiver_address']      = strlen($data['p_receiver_address']) > 0 ? $data['p_receiver_address'] : '';
+        $argv['declaration_calculate']['p_payment_type_id']       = $data['p_payment_type_id'];
+        $argv['declaration_calculate']['p_payer_type_id']         = $data['p_payer_type_id'];
+        $argv['declaration_calculate']['p_cost_return']           = $data['p_cost_return'];
+        $argv['declaration_calculate']['p_cod']                   = $data['p_cod'];
+        $argv['declaration_calculate']['p_perc_send']             = $data['p_perc_send'];
+        $argv['declaration_calculate']['p_part3_okpo']            = strlen($data['p_part3_okpo']) > 0 ? $data['p_part3_okpo'] : '';
+        $argv['declaration_calculate']['p_part3_company_name']    = strlen($data['p_part3_company_name']) > 0 ? $data['p_part3_company_name'] : '';
+        $argv['declaration_calculate']['p_part3_surname']         = strlen($data['p_part3_surname']) > 0 ? $data['p_part3_surname'] : '';
+        $argv['declaration_calculate']['p_part3_firstname']       = strlen($data['p_part3_firstname']) > 0 ? $data['p_part3_firstname'] : '';
+        $argv['declaration_calculate']['p_part3_patronymic']      = strlen($data['p_part3_patronymic']) > 0 ? $data['p_part3_patronymic'] : '';
+        $argv['declaration_calculate']['p_city_p']                = strlen($data['p_city_p']) > 0 ? $data['p_city_p'] : '';
+        $argv['declaration_calculate']['p_wh_p']                  = strlen($data['p_wh_p']) > 0 ? $data['p_wh_p'] : '';
+        $argv['declaration_calculate']['p_adress_p']              = strlen($data['p_adress_p']) > 0 ? $data['p_adress_p'] : '';
+        $argv['declaration_calculate']['p_clob_box']              = strlen($data['p_clob_box']) > 0 ? $data['p_clob_box'] : '';
+        $argv['declaration_calculate']['p_clob_comparam']         = strlen($data['p_clob_comparam']) > 0 ? $data['p_clob_comparam'] : '';
+        $argv['declaration_calculate']['p_clob_serv']             = strlen($data['p_clob_serv']) > 0 ? $data['p_clob_serv'] : '';
+        $argv['declaration_calculate']['p_clob_seats']            = strlen($data['p_clob_seats']) > 0 ? $data['p_clob_seats'] : '';
 
         return $this->requestData('declaration_calculate', $argv, '', false);
     }
