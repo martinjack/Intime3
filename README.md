@@ -41,7 +41,7 @@ composer require jackmartin/api3intime dev-master
 	* [get_branch_list](https://github.com/martinjack/Intime3#get_branch_list)
 10. Получить информацию о складе / почтомат по ID
 	* [get_branch_id](https://github.com/martinjack/Intime3#get_branch_idid)
-11. Получить список описания груза
+11. Получить список описаний груза
 	* [get_goods_desc_list](https://github.com/martinjack/Intime3#get_goods_desc_list)
 12. Получить описание груза по ID
 	* [get_goods_desc_id](https://github.com/martinjack/Intime3#get_goods_desc_idid)
