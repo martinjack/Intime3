@@ -45,7 +45,7 @@ composer require jackmartin/api3intime dev-master
 	* [get_goods_desc_list](https://github.com/martinjack/Intime3#get_goods_desc_list)
 12. Получить описание груза по ID
 	* [get_goods_desc_id](https://github.com/martinjack/Intime3#get_goods_desc_idid)
-13. Получить список упаковки
+13. Получить список упаковок
 	* [get_box_list](https://github.com/martinjack/Intime3#get_box_list)
 14. Получить упаковку по ID
 	* [get_box_id](https://github.com/martinjack/Intime3#get_box_idid)
