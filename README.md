@@ -57,6 +57,8 @@ composer require jackmartin/api3intime dev-master
 	* [get_branch_work_id](https://github.com/martinjack/Intime3#get_branch_work_idid)
 17. Получить список историй ТТН
 	* [declStatus](https://github.com/martinjack/Intime3#declstatusnumber)
+18. Получить информацию ТТН
+	* [getTTN]()
 
 # Пример
 
@@ -286,4 +288,17 @@ include_once 'vendor/autoload.php';
 $intime = new InTime3('API_KEY');
 
 print_r($intime->declStatus('NUMBER_TTN'));
+```
+
+### getTTN($number) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->getTTN('NUMBER_TTN'));
 ```

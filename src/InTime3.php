@@ -418,4 +418,18 @@ class InTime3
     {
         return $this->requestData('get_branch_work_hours', null, $id);
     }
+    /**
+     *  ОТРИМАТИ ІНФОРМАЦІЮ ТТН
+     *  ПОЛУЧИТЬ ИНФОРМАЦИЮ ТТН
+     *
+     *  @param int  $number     NUMBER TTN
+     *
+     *  @return string
+     *
+     **/
+    public function getTTN($number)
+    {
+        $argv['get_ttn_by_api_key']['ttn'] = $number;
+        return $this->requestData('get_ttn_by_api_key', $argv);
+    }
 }
