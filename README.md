@@ -58,7 +58,7 @@ composer require jackmartin/api3intime dev-master
 17. Получить список историй ТТН
 	* [declStatus](https://github.com/martinjack/Intime3#declstatusnumber)
 18. Получить информацию ТТН
-	* [getTTN]()
+	* [getTTN](https://github.com/martinjack/Intime3#getttnnumber)
 
 # Пример
 
