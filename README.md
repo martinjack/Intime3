@@ -4,7 +4,7 @@ PHP класс для работы с почтой Intime
 
 # Документация 
 
-[Doc PDF](https://intime.ua/upload/images/document/api_3_0.pdf)
+[Інструкція по інтеграції з веб- сервісами Ін-Тайм. API 3.0](https://intime.ua/upload/images/document/api_3_0.pdf)
 
 # Требование
 
