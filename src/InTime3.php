@@ -2,7 +2,7 @@
 /**
  *    module: InTime API 3
  *    author: Evgen Kitonin
- *    version: 1.0
+ *    version: 1.1
  *    create: 05.10.2017
  **/
 namespace InTime;
@@ -149,6 +149,8 @@ class InTime3
      *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СТРАНЕ
      *  RECEIVING INFORMATION BY COUNTRY
      *
+     *  @return json
+     *
      **/
     public function get_country_list()
     {
@@ -156,7 +158,13 @@ class InTime3
     }
     /**
      *
-     *   @param int  $id     ID COUNTRY
+     *  ОТРИМАТИ ІНФОРМАЦІЮ ПРО КРАЇНУ ПО ID
+     *  ПОЛУЧИТЬ ИНФОРМАЦИЮ О СТРАНЕ ПО ID
+     *  GET INFORMATION ABOUT THE COUNTRY BY ID
+     *
+     *  @param int  $id     ID COUNTRY
+     *
+     *  @return json
      *
      **/
     public function get_country_id($id)
@@ -169,13 +177,23 @@ class InTime3
      *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОБЛАСТЯМ
      *  OBTAINING INFORMATION BY REGION
      *
+     *  @return json
+     *
      **/
     public function get_area_list()
     {
         return $this->requestData('get_area_by_id', null);
     }
     /**
-     *   @param  int         $id     ID AREA
+     *
+     *  ОТРИМАТИ ІНФОРМАЦІЮ ПРО ОБЛАСТЬ ПО ID
+     *  ПОЛУЧИТЬ ИНФОРМАЦИЮ О ОБЛАСТЬ ПО ID
+     *  GET INFORMATION ABOUT THE REGION BY ID
+     *
+     *  @param  int     $id     ID AREA
+     *
+     *  @return json
+     *
      **/
     public function get_area_id($id)
     {
@@ -183,9 +201,29 @@ class InTime3
     }
     /**
      *
+     *  ОТРИМАТИ СПИСОК ОБЛАСТЕЙ ПО ФІЛЬТРУ
+     *  ПОЛУЧИТЬ СПИСОК ОБЛАСТЕЙ ПО ФИЛЬТРУ
+     *  GET A LIST OF AREAS BY FILTER
+     *
+     *  @param  array   $data   ARRAY DATA
+     *
+     *  @return json
+     *
+     **/
+    public function get_area_filter($data = array())
+    {
+        $argv['get_area_filtered']['id']         = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
+        $argv['get_area_filtered']['country_id'] = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
+        $argv['get_area_filtered']['area_name']  = isset($data['area_name']) ? strlen($data['area_name']) > 0 ? $data['area_name'] : '' : '';
+        return $this->requestData('get_area_filtered', $argv);
+    }
+    /**
+     *
      *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО РАЙОНАМ
      *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО РАЙОНАМ
      *  OBTAINING INFORMATION ON AREAS
+     *
+     *  @return json
      *
      **/
     public function get_district_list()
@@ -194,7 +232,13 @@ class InTime3
     }
     /**
      *
-     *   @param  int         $id      ID DISTRICT
+     *  ОТРИМАТИ ІНФОРМАЦІЮ ПРО РАЙОНІ ПО ID
+     *  ПОЛУЧИТЬ ИНФОРМАЦИЮ О РАЙОНЕ ПО ID
+     *  GET INFORMATION ABOUT THE AREA BY ID
+     *
+     *  @param  int     $id     ID DISTRICT
+     *
+     *  @return json
      *
      **/
     public function get_district_id($id)
@@ -203,19 +247,46 @@ class InTime3
     }
     /**
      *
+     *  ОТРИМАТИ СПИСОК РАЙОНІВ ПО ФІЛЬТРУ
+     *  ПОЛУЧИТЬ СПИСОК РАЙОНОВ ПО ФИЛЬТРУ
+     *  GET A LIST OF AREAS BY FILTER
+     *
+     *  @param  array   $data   ARRAY DATA
+     *
+     *  @return json
+     *
+     **/
+    public function get_district_filter($data = array())
+    {
+        $argv['get_district_filtered']['id']            = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
+        $argv['get_district_filtered']['area_id']       = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
+        $argv['get_district_filtered']['country_id']    = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
+        $argv['get_district_filtered']['district_name'] = isset($data['district_name']) ? strlen($data['district_name']) > 0 ? $data['district_name'] : '' : '';
+
+        return $this->requestData('get_district_filtered', $argv);
+    }
+    /**
+     *
      *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО НАСЕЛЕНОМУ ПУНКТУ
      *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО НАСЕЛЕННЫМ ПУНКТАМ
      *  OBTAINING INFORMATION ON HUMAN SETTLEMENTS
      *
-     *  @return string
+     *  @return json
+     *
      **/
     public function get_locality_list()
     {
-        return $this->requestData('get_locality_by_id', null);
+        return $this->requestData('get_locality_all', null);
     }
     /**
      *
-     *   @param  int  $id     ID LOCALITY
+     *  ОТРИМАТИ ІНФОРМАЦІЮ ПРО НАСЕЛЕНИМ ПУНКТІ ПО ID
+     *  ПОЛУЧИТЬ ИНФОРМАЦИЮ О НАСЕЛЕННЫМ ПУНКТЕ ПО ID
+     *  GET INFORMATION ABOUT THE LOCALITY BY ID
+     *
+     *  @param  int  $id     ID LOCALITY
+     *
+     *  @return json
      *
      **/
     public function get_locality_id($id)
@@ -224,9 +295,32 @@ class InTime3
     }
     /**
      *
+     *  ОТРИМАТИ СПИСОК ОБЛАСТЕЙ ПО ФІЛЬТРУ
+     *  ПОЛУЧИТЬ СПИСОК ОБЛАСТЕЙ ПО ФИЛЬТРУ
+     *  OBTAIN A LIST OF REGIONS BY FILTER
+     *
+     *  @param  array   $data   ARRAY DATA
+     *
+     *  @return json
+     *
+     **/
+    public function get_locality_filter($data = array())
+    {
+        $argv['get_locality_filtered']['id']            = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
+        $argv['get_locality_filtered']['country_id']    = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
+        $argv['get_locality_filtered']['area_id']       = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
+        $argv['get_locality_filtered']['district_id']   = isset($data['district_name']) ? strlen($data['district_name']) > 0 ? $data['district_name'] : '' : '';
+        $argv['get_locality_filtered']['locality_name'] = isset($data['locality_name']) ? strlen($data['locality_name']) > 0 ? $data['locality_name'] : '' : '';
+
+        return $this->requestData('get_locality_filtered', $argv);
+    }
+    /**
+     *
      *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО СКЛАДУ / ПОШТОМАТАМ
      *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СКЛАДУ / ПОЧТАМАТАМ
-     *  OBTAINING INFORMATION ON WAREHOUSE / STANDINGS
+     *  OBTAINING INFORMATION ON WAREHOUSE / MAILBOXES
+     *
+     *  @return json
      *
      **/
     public function get_branch_list()
@@ -235,7 +329,13 @@ class InTime3
     }
     /**
      *
-     *   @param  int     $id     ID BRANCH
+     *  ОТРИМАТИ ІНФОРМАЦІЮ ПРО СКЛАДІ / ПОШТОМАТЕ ПО ID
+     *  ПОЛУЧИТЬ ИНФОРМАЦИЮ О СКЛАДЕ / ПОЧТОМАТЕ ПО ID
+     *  GET INFORMATION ABOUT THE STOCK / MAILBOX BY ID
+     *
+     *  @param     int     $id     ID BRANCH
+     *
+     *  @return json
      *
      **/
     public function get_branch_id($id)
@@ -243,11 +343,35 @@ class InTime3
         return $this->requestData('get_branch_by_id', null, $id);
     }
     /**
+     *
+     *  ОТРИМАТИ СПИСОК СКЛАДІВ / ПОЧТОМАТОВ ПО ФІЛЬТРУ
+     *  ПОЛУЧИТЬ СПИСОК СКЛАДОВ / ПОЧТОМАТОВ ПО ФИЛЬТРУ
+     *  GET A LIST OF WAREHOUSES / MAILBOXES BY FILTER
+     *
+     *  @param  array   $data   ARRAY DATA
+     *
+     *  @return json
+     *
+     **/
+    public function get_branch_filter($data = array())
+    {
+        $argv['get_branch_filtered']['id']          = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
+        $argv['get_branch_filtered']['country_id']  = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
+        $argv['get_branch_filtered']['area_id']     = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
+        $argv['get_branch_filtered']['district_id'] = isset($data['district_id']) ? strlen($data['district_id']) > 0 ? $data['district_id'] : '' : '';
+        $argv['get_branch_filtered']['locality_id'] = isset($data['locality_id']) ? strlen($data['locality_id']) > 0 ? $data['locality_id'] : '' : '';
+        $argv['get_branch_filtered']['branch_name'] = isset($data['branch_name']) ? strlen($data['branch_name']) > 0 ? $data['branch_name'] : '' : '';
+
+        return $this->requestData('get_branch_filtered', $argv);
+    }
+    /**
+     *
      *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОПИСУ ВАНТАЖУ
      *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОПИСАНИЯ ГРУЗА
      *  OBTAINING INFORMATION ON THE DESCRIPTION OF GOODS
      *
-     *  @return string
+     *  @return json
+     *
      **/
     public function get_goods_desc_list()
     {
@@ -255,20 +379,26 @@ class InTime3
     }
     /**
      *
+     *  ОТРИМАТИ ОПИС ВАНТАЖУ ПО ID
+     *  ПОЛУЧИТЬ ОПИСАНИЕ ГРУЗА ПО ID
+     *  RECEIVE A DESCRIPTION OF THE CARGO BY ID
+     *
      *  @param  int     $id     ID GOODS DESC
      *
-     *  @return string
+     *  @return json
+     *
      **/
     public function get_goods_desc_id($id)
     {
         return $this->requestData('get_goods_desc_by_id', null, $id);
     }
     /**
+     *
      *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО ПАКУВАННЮ
      *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО УПАКОВКЕ
      *  RECEIPT OF PACKAGING INFORMATION
      *
-     *  @return string
+     *  @return json
      *
      **/
     public function get_box_list()
@@ -276,12 +406,14 @@ class InTime3
         return $this->requestData('get_box_by_id', null);
     }
     /**
+     *
      *  ОТРИМАТИ УПАКОВКУ ПО OD
      *  ПОЛУЧИТЬ УПАКОВКУ ПО ID
+     *  GET PACKAGING BY ID
      *
      *  @param  int     $id     ID BOX
      *
-     *  @return string
+     *  @return json
      *
      **/
     public function get_box_id($id)
@@ -289,13 +421,14 @@ class InTime3
         return $this->requestData('get_box_by_id', null, $id);
     }
     /**
+     *
      *  СТВОРЕННЯ ЗАЯВКИ ТТН
      *  СОЗДАНИЕ ЗАЯВКИ ТТН
      *  CREATING A TTN APPLICATION
      *
      *  @param  array   $data   DATA ARRAY
      *
-     *  @return string
+     *  @return json
      *
      **/
     public function declaration_create($data = array())
@@ -336,12 +469,14 @@ class InTime3
         return $this->requestData('declaration_insert_update', $argv);
     }
     /**
+     *
      *  РОЗРАХУНОК ВАРТОСТІ ДОСТАВКИ
      *  РАСЧЕТ СТОИМОСТИ ДОСТАВКИ
+     *  CALCULATING THE COST OF DELIVERY
      *
      *  @param array    $data   DATA ARRAY
      *
-     *  @return string
+     *  @return json
      *
      **/
     public function declaration_calculate($data = array())
@@ -379,12 +514,14 @@ class InTime3
         return $this->requestData('declaration_calculate', $argv, '', false);
     }
     /**
+     *
      *  ОТРИМАННЯ ІСТОРІЇ СТАТУСІВ ПО ТТН
      *  ПОЛУЧЕНИЕ ИСТОРИИ СТАТУС ПО ТТН
+     *  GET A LIST OF TTN STORIES
      *
      *  @param  string  $number     NUMBER TTN
      *
-     *  @return string
+     *  @return json
      *
      **/
     public function declStatus($number)
@@ -394,11 +531,12 @@ class InTime3
         return $this->requestData('decl_status_history', $argv);
     }
     /**
+     *
      *  ОТРИМАННЯ ГРАФІКУ РОБОТИ СКЛАДУ
      *  ПОЛУЧЕНИЯ ГРАФИКА РАБОТЫ СКЛАДА
      *  GETTING SCHEDULES FOR THE WAREHOUSE
      *
-     *  @return string
+     *  @return json
      *
      **/
     public function get_branch_work_list()
@@ -406,12 +544,14 @@ class InTime3
         return $this->requestData('get_branch_work_hours', null);
     }
     /**
+     *
      *  ОТРИМАТИ ГРАФІК РОБОТИ СКЛАДА ПО ID
      *  ПОЛУЧИТЬ ГРАФИК РАБОТЫ СКЛАДА ПО ID
+     *  GET THE WORK SCHEDULE OF THE WAREHOUSE BY ID
      *
      *  @param  int     $id     ID BRANCH_WORK
      *
-     *  @return string
+     *  @return json
      *
      **/
     public function get_branch_work_id($id)
@@ -419,12 +559,14 @@ class InTime3
         return $this->requestData('get_branch_work_hours', null, $id);
     }
     /**
+     *
      *  ОТРИМАТИ ІНФОРМАЦІЮ ТТН
      *  ПОЛУЧИТЬ ИНФОРМАЦИЮ ТТН
+     *  GET TTN INFORMATION
      *
      *  @param int  $number     NUMBER TTN
      *
-     *  @return string
+     *  @return json
      *
      **/
     public function getTTN($number)
