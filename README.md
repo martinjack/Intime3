@@ -30,25 +30,25 @@ composer require jackmartin/api3intime
 4. Получить информацию о областе по ID
 	* [get_area_id](https://github.com/martinjack/Intime3#get_area_idid)
 5. Получить список областей по фильтру
-	* [get_area_filter]()
+	* [get_area_filter](https://github.com/martinjack/Intime3#get_area_filterdata--array)
 6. Получить список районов
 	* [get_district_list](https://github.com/martinjack/Intime3#get_district_list)
 7. Получить информацию о районе по ID
 	* [get_district_id](https://github.com/martinjack/Intime3#get_district_idid)
 8. Получить список районов по фильтру
-	* [get_district_filter]()
+	* [get_district_filter](https://github.com/martinjack/Intime3#get_district_filterdata--array)
 9. Получение список населенных пунктов
 	* [get_locality_list](https://github.com/martinjack/Intime3#get_locality_list)
 10. Получить информацию о населенным пункте по ID
 	* [get_locality_id](https://github.com/martinjack/Intime3#get_locality_idid)
 11. Получить список населенных пунктов по фильтру
-	* [get_locality_filtered]()
+	* [get_locality_filter](https://github.com/martinjack/Intime3#get_locality_filterdata--array)
 12. Получение список складов / почтоматов
 	* [get_branch_list](https://github.com/martinjack/Intime3#get_branch_list)
 13. Получить информацию о складе / почтомате по ID
 	* [get_branch_id](https://github.com/martinjack/Intime3#get_branch_idid)
 14. Получить список складов / почтоматов по фильтру
-	* [get_branch_filter]()
+	* [get_branch_filter](https://github.com/martinjack/Intime3#get_branch_filterdata--array)
 15. Получить список описаний груза
 	* [get_goods_desc_list](https://github.com/martinjack/Intime3#get_goods_desc_list)
 16. Получить описание груза по ID
