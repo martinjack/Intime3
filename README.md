@@ -21,7 +21,7 @@ composer require jackmartin/api3intime
 
 # Методы API
 
-1. Полученить список стран  
+1. Получить список стран  
 	* [get_country_list](https://github.com/martinjack/Intime3#get_country_list)
 2. Получить информацию о стране по ID
 	* [get_country_id](https://github.com/martinjack/Intime3#get_country_idid)
@@ -29,35 +29,43 @@ composer require jackmartin/api3intime
 	* [get_area_list](https://github.com/martinjack/Intime3#get_area_list)
 4. Получить информацию о областе по ID
 	* [get_area_id](https://github.com/martinjack/Intime3#get_area_idid)
-5. Получить список районов
+5. Получить список областей по фильтру
+	* [get_area_filter]()
+6. Получить список районов
 	* [get_district_list](https://github.com/martinjack/Intime3#get_district_list)
-6. Получить информацию о районе по ID
+7. Получить информацию о районе по ID
 	* [get_district_id](https://github.com/martinjack/Intime3#get_district_idid)
-7. Получение список населенных пунктов
+8. Получить список районов по фильтру
+	* [get_district_filter]()
+9. Получение список населенных пунктов
 	* [get_locality_list](https://github.com/martinjack/Intime3#get_locality_list)
-8. Получить информацию о населенным пункте по ID
+10. Получить информацию о населенным пункте по ID
 	* [get_locality_id](https://github.com/martinjack/Intime3#get_locality_idid)
-9. Получение список складов / почтоматов
+11. Получить список населенных пунктов по фильтру
+	* [get_locality_filtered]()
+12. Получение список складов / почтоматов
 	* [get_branch_list](https://github.com/martinjack/Intime3#get_branch_list)
-10. Получить информацию о складе / почтомат по ID
+13. Получить информацию о складе / почтомате по ID
 	* [get_branch_id](https://github.com/martinjack/Intime3#get_branch_idid)
-11. Получить список описаний груза
+14. Получить список складов / почтоматов по фильтру
+	* [get_branch_filter]()
+15. Получить список описаний груза
 	* [get_goods_desc_list](https://github.com/martinjack/Intime3#get_goods_desc_list)
-12. Получить описание груза по ID
+16. Получить описание груза по ID
 	* [get_goods_desc_id](https://github.com/martinjack/Intime3#get_goods_desc_idid)
-13. Получить список упаковок
+17. Получить список упаковок
 	* [get_box_list](https://github.com/martinjack/Intime3#get_box_list)
-14. Получить упаковку по ID
+18. Получить упаковку по ID
 	* [get_box_id](https://github.com/martinjack/Intime3#get_box_idid)
-15. Создать заявку ТТН
+19. Создать заявку ТТН
 	* [declaration_create](https://github.com/martinjack/Intime3#declaration_createdata--array)
-15. Получить список графика работы складов
+20. Получить список графика работы складов
 	* [get_branch_work_list](https://github.com/martinjack/Intime3#get_branch_work_list)
-16. Получить график работы склада по ID
+21. Получить график работы склада по ID
 	* [get_branch_work_id](https://github.com/martinjack/Intime3#get_branch_work_idid)
-17. Получить список историй ТТН
+22. Получить список историй ТТН
 	* [declStatus](https://github.com/martinjack/Intime3#declstatusnumber)
-18. Получить информацию ТТН
+23. Получить информацию ТТН
 	* [getTTN](https://github.com/martinjack/Intime3#getttnnumber)
 
 # Пример
@@ -116,6 +124,25 @@ $intime = new InTime3('API_KEY');
 print_r($intime->get_area_id(1));
 ```
 
+### get_area_filter($data = array()) ###
+```php 
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_area_filter(array(
+
+    // 'id'        => 1,
+    'area_name' => 'В',
+    // 'country_id' => '215',
+
+)));
+```
+
 ### get_district_list() ###
 ```php
 <?php
@@ -140,6 +167,25 @@ include_once 'vendor/autoload.php';
 $intime = new InTime3('API_KEY');
 
 print_r($intime->get_district_id(241));
+```
+
+### get_district_filter($data = array()) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_district_filter(array(
+
+    // 'id' => '241',
+    // 'country_id' => '215',
+    'district_name' => 'Бере',
+
+)));
 ```
 
 ### get_locality_list() ###
@@ -168,6 +214,27 @@ $intime = new InTime3('API_KEY');
 print_r($intime->get_locality_id(100));
 ```
 
+### get_locality_filter($data = array()) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_locality_filter(array(
+
+    // 'id' => 328,
+    // 'country_id' => 215,
+    // 'area_id' => 14,
+    'district_id' => 416,
+    // 'locality_name' => 'Сково',
+
+)));
+```
+
 ### get_branch_list() ###
 ```php
 <?php
@@ -192,6 +259,28 @@ include_once 'vendor/autoload.php';
 $intime = new InTime3('API_KEY');
 
 print_r($intime->get_branch_id(328));
+```
+
+### get_branch_filter($data = array()) ###
+```php
+<?php
+
+use InTime\InTime3;
+
+include_once 'vendor/autoload.php';
+
+$intime = new InTime3('API_KEY');
+
+print_r($intime->get_branch_filter(array(
+
+    // 'id' => 328,
+    // 'country_id' => 215,
+    // 'area_id' => 15,
+    // 'district_id' => 40,
+    // 'locality_id' => 39,
+    'branch_name' => 'Воло',
+
+)));
 ```
 
 ### get_goods_desc_list() ###
