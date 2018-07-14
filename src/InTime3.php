@@ -309,7 +309,7 @@ class InTime3
         $argv['get_locality_filtered']['id']            = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
         $argv['get_locality_filtered']['country_id']    = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
         $argv['get_locality_filtered']['area_id']       = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
-        $argv['get_locality_filtered']['district_id']   = isset($data['district_name']) ? strlen($data['district_name']) > 0 ? $data['district_name'] : '' : '';
+        $argv['get_locality_filtered']['district_id']   = isset($data['district_id']) ? strlen($data['district_id']) > 0 ? $data['district_id'] : '' : '';
         $argv['get_locality_filtered']['locality_name'] = isset($data['locality_name']) ? strlen($data['locality_name']) > 0 ? $data['locality_name'] : '' : '';
 
         return $this->requestData('get_locality_filtered', $argv);
