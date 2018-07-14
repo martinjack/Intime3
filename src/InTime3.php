@@ -1,8 +1,8 @@
 <?php
 /**
  *    module: InTime API 3
- *    author: Evgen Kitonin
- *    version: 1.1
+ *    author: Evgen Kytonin
+ *    version: 1.1-fix
  *    create: 05.10.2017
  **/
 namespace InTime;
