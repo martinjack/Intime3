@@ -1,5 +1,7 @@
 # Описание
 
+[![Latest Stable Version](https://poser.pugx.org/jackmartin/api3intime/v/stable)](https://packagist.org/packages/jackmartin/api3intime) [![Total Downloads](https://poser.pugx.org/jackmartin/api3intime/downloads)](https://packagist.org/packages/jackmartin/api3intime) [![License](https://poser.pugx.org/jackmartin/api3intime/license)](https://packagist.org/packages/jackmartin/api3intime)
+
 PHP класс для работы с почтой Intime
 
 # Документация 
