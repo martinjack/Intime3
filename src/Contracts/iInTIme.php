@@ -2,6 +2,13 @@
 
 namespace InTime\Contracts;
 
+/**
+ *
+ * Interface inInTime
+ *
+ * @package InTime
+ *
+ */
 interface iInTime
 {
 

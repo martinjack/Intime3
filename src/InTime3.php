@@ -1,16 +1,18 @@
 <?php
-/**
- *    module: InTime API 3
- *    author: Evgen Kytonin
- *    version: 1.2
- *    create: 25.03.2019
- **/
+
 namespace InTime;
 
 use GuzzleHttp\Client;
 use InTime\Contracts\iInTime;
 use Meng\AsyncSoap\Guzzle\Factory;
 
+/**
+ *
+ * Class InTime3
+ *
+ * @package InTime
+ *
+ **/
 class InTime3 implements iInTime
 {
     /**
