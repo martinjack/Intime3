@@ -1,95 +1,128 @@
 <?php
 /**
  *    module: InTime API 3
- *    author: Evgen Kitonin
- *    version: 1.1
- *    create: 05.10.2017
+ *    author: Evgen Kytonin
+ *    version: 1.2
+ *    create: 25.03.2019
  **/
 namespace InTime;
 
 use GuzzleHttp\Client;
+use InTime\Contracts\iInTime;
 use Meng\AsyncSoap\Guzzle\Factory;
 
-class InTime3
+class InTime3 implements iInTime
 {
     /**
-     *    API KEY STRING
+     * API KEY
      *
-     *    @var string api key
+     * @var STRING
      *
      **/
     private $api_key = null;
     /**
-     *    CLASS CLIENT
      *
-     *    @var class
+     * CLIENT
+     *
+     * @var OBJECT
      *
      **/
     private $client = null;
     /**
-     *    API URL
      *
-     *    @var string
+     * API URL
+     *
+     * @var STRING
      *
      **/
     private $api = 'http://esb.intime.ua:8080/services/intime_api_3.0?wsdl';
     /**
-     *    PRINT DATA IN FORMAT ARRAY OR STD OBJECT
+     * PRINT DATA IN FORMAT ARRAY OR STD OBJECT
      *
-     *    @var boolean
+     * @var BOOLEAN
      *
      **/
     private $print = true;
     /**
-     *    DEBUG MODE
      *
-     *    @var boolean
+     * DEBUG MODE
+     *
+     * @var BOOLEAN
      *
      **/
     private $debug = false;
     /**
      *
-     *  @param   string        $api_key    API KEY
-     *  @param   boolean       $print      PRINT DATA IN FORMAT ARRAY OR STD OBJECT
+     * INIT CLASS
      *
-     *  @return $this;
+     * @param STRING
+     *
+     * @param  BOOLEAN
+     *
+     * @param INTEGER
+     *
+     * @param INTEGER
+     *
+     * @return OBJECT
      *
      **/
-    public function __construct($api_key, $print = true, $debug = false)
+    public function __construct($api_key, $print = true, $debug = false, $timeout = 60, $connect_timeout = 60)
     {
-        $this->print  = $print;
-        $this->debug  = $debug;
-        $factory      = new Factory();
-        $this->client = $factory->create(new Client(), $this->api);
+
+        $this->print = $print;
+
+        $this->debug = $debug;
+
+        $factory = new Factory();
+
+        $this->client = $factory->create(new Client(
+
+            [
+
+                'request.options' => [
+
+                    'timeout'         => $timeout,
+
+                    'connect_timeout' => $connect_timeout,
+
+                ],
+
+            ]
+
+        ), $this->api);
 
         if ($this->debug) {
+
             header("Content-Type: application/json;charset=utf-8");
+
         }
 
         return $this->setKey($api_key);
     }
-    public function __destruct()
-    {
-    }
     /**
-     *  SET API KEY
      *
-     *  @param  string  $api_key    API KEY
+     * SET API KEY
      *
-     *  @return $this;
+     * @param STRING
+     *
+     * @return OBJECT
      *
      **/
     private function setKey($api_key)
     {
+
         $this->api_key = $api_key;
+
         return $this;
+
     }
     /**
-     *  PREPARE
      *
-     *  @param  string  $data   DATA RESPONSE
+     * PREPARE
      *
-     *  @return  $data;
+     * @param STRING
+     *
+     * @return  ARRAY
      *
      **/
     private function prepare($data)
@@ -113,14 +146,15 @@ class InTime3
         }
     }
     /**
-     *  REQUEST DATA
      *
-     *  @param  string  $method METHOD REQUEST
-     *  @param  array   $argv   ARRAY DATA
-     *  @param  int     $id     ID ITEM
-     *  @param  boolean $key    TYPE API KEY
+     * REQUEST DATA
      *
-     *    @return $data;
+     * @param STRING
+     * @param ARRAY
+     * @param INTEGER
+     * @param BOOLEAN
+     *
+     * @return JSON
      *
      **/
     private function requestData($method, $argv = array(), $id = 0, $key = true)
@@ -136,25 +170,30 @@ class InTime3
         }
 
         if ($id != 0) {
+
             $argv[$method]['id'] = $id;
+
         }
 
         $request = $this->client->call($method, $argv);
 
         return $this->prepare($request);
+
     }
     /**
      *
-     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО КРАЇНІ
-     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СТРАНЕ
-     *  RECEIVING INFORMATION BY COUNTRY
+     * ОТРИМАННЯ ІНФОРМАЦІЇ ПО КРАЇНІ
+     * ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СТРАНЕ
+     * RECEIVING INFORMATION BY COUNTRY
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_country_list()
     {
+
         return $this->requestData('get_country_by_id', null);
+
     }
     /**
      *
@@ -162,416 +201,533 @@ class InTime3
      *  ПОЛУЧИТЬ ИНФОРМАЦИЮ О СТРАНЕ ПО ID
      *  GET INFORMATION ABOUT THE COUNTRY BY ID
      *
-     *  @param int  $id     ID COUNTRY
+     *  @param ARRAY
      *
-     *  @return json
+     *  @return JSON
      *
      **/
     public function get_country_id($id)
     {
+
         return $this->requestData('get_country_by_id', null, $id);
+
     }
     /**
      *
-     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОБЛАСТЯМ
-     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОБЛАСТЯМ
-     *  OBTAINING INFORMATION BY REGION
+     * ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОБЛАСТЯМ
+     * ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОБЛАСТЯМ
+     * OBTAINING INFORMATION BY REGION
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_area_list()
     {
+
         return $this->requestData('get_area_by_id', null);
+
     }
     /**
      *
-     *  ОТРИМАТИ ІНФОРМАЦІЮ ПРО ОБЛАСТЬ ПО ID
-     *  ПОЛУЧИТЬ ИНФОРМАЦИЮ О ОБЛАСТЬ ПО ID
-     *  GET INFORMATION ABOUT THE REGION BY ID
+     * ОТРИМАТИ ІНФОРМАЦІЮ ПРО ОБЛАСТЬ ПО ID
+     * ПОЛУЧИТЬ ИНФОРМАЦИЮ О ОБЛАСТЬ ПО ID
+     * GET INFORMATION ABOUT THE REGION BY ID
      *
-     *  @param  int     $id     ID AREA
+     * @param INTEGER
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_area_id($id)
     {
+
         return $this->requestData('get_area_by_id', null, $id);
+
     }
     /**
      *
-     *  ОТРИМАТИ СПИСОК ОБЛАСТЕЙ ПО ФІЛЬТРУ
-     *  ПОЛУЧИТЬ СПИСОК ОБЛАСТЕЙ ПО ФИЛЬТРУ
-     *  GET A LIST OF AREAS BY FILTER
+     * ОТРИМАТИ СПИСОК ОБЛАСТЕЙ ПО ФІЛЬТРУ
+     * ПОЛУЧИТЬ СПИСОК ОБЛАСТЕЙ ПО ФИЛЬТРУ
+     * GET A LIST OF AREAS BY FILTER
      *
-     *  @param  array   $data   ARRAY DATA
+     * @param ARRAY
      *
-     *  @return json
+     * @return JSON
      *
      **/
-    public function get_area_filter($data = array())
+    public function get_area_filter($data = [])
     {
-        $argv['get_area_filtered']['id']         = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
+
+        $argv['get_area_filtered']['id'] = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
+
         $argv['get_area_filtered']['country_id'] = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
-        $argv['get_area_filtered']['area_name']  = isset($data['area_name']) ? strlen($data['area_name']) > 0 ? $data['area_name'] : '' : '';
+
+        $argv['get_area_filtered']['area_name'] = isset($data['area_name']) ? strlen($data['area_name']) > 0 ? $data['area_name'] : '' : '';
+
         return $this->requestData('get_area_filtered', $argv);
+
     }
     /**
      *
-     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО РАЙОНАМ
-     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО РАЙОНАМ
-     *  OBTAINING INFORMATION ON AREAS
+     * ОТРИМАННЯ ІНФОРМАЦІЇ ПО РАЙОНАМ
+     * ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО РАЙОНАМ
+     * OBTAINING INFORMATION ON AREAS
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_district_list()
     {
+
         return $this->requestData('get_district_by_id', null);
+
     }
     /**
      *
-     *  ОТРИМАТИ ІНФОРМАЦІЮ ПРО РАЙОНІ ПО ID
-     *  ПОЛУЧИТЬ ИНФОРМАЦИЮ О РАЙОНЕ ПО ID
-     *  GET INFORMATION ABOUT THE AREA BY ID
+     * ОТРИМАТИ ІНФОРМАЦІЮ ПРО РАЙОНІ ПО ID
+     * ПОЛУЧИТЬ ИНФОРМАЦИЮ О РАЙОНЕ ПО ID
+     * GET INFORMATION ABOUT THE AREA BY ID
      *
-     *  @param  int     $id     ID DISTRICT
+     * @param INTEGER
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_district_id($id)
     {
+
         return $this->requestData('get_district_by_id', null, $id);
+
     }
     /**
      *
-     *  ОТРИМАТИ СПИСОК РАЙОНІВ ПО ФІЛЬТРУ
-     *  ПОЛУЧИТЬ СПИСОК РАЙОНОВ ПО ФИЛЬТРУ
-     *  GET A LIST OF AREAS BY FILTER
+     * ОТРИМАТИ СПИСОК РАЙОНІВ ПО ФІЛЬТРУ
+     * ПОЛУЧИТЬ СПИСОК РАЙОНОВ ПО ФИЛЬТРУ
+     * GET A LIST OF AREAS BY FILTER
      *
-     *  @param  array   $data   ARRAY DATA
+     * @param ARRAY
      *
-     *  @return json
+     * @return json
      *
      **/
-    public function get_district_filter($data = array())
+    public function get_district_filter($data = [])
     {
-        $argv['get_district_filtered']['id']            = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
-        $argv['get_district_filtered']['area_id']       = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
-        $argv['get_district_filtered']['country_id']    = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
+
+        $argv['get_district_filtered']['id'] = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
+
+        $argv['get_district_filtered']['area_id'] = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
+
+        $argv['get_district_filtered']['country_id'] = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
+
         $argv['get_district_filtered']['district_name'] = isset($data['district_name']) ? strlen($data['district_name']) > 0 ? $data['district_name'] : '' : '';
 
         return $this->requestData('get_district_filtered', $argv);
+
     }
     /**
      *
-     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО НАСЕЛЕНОМУ ПУНКТУ
-     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО НАСЕЛЕННЫМ ПУНКТАМ
-     *  OBTAINING INFORMATION ON HUMAN SETTLEMENTS
+     * ОТРИМАННЯ ІНФОРМАЦІЇ ПО НАСЕЛЕНОМУ ПУНКТУ
+     * ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО НАСЕЛЕННЫМ ПУНКТАМ
+     * OBTAINING INFORMATION ON HUMAN SETTLEMENTS
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_locality_list()
     {
+
         return $this->requestData('get_locality_all', null);
+
     }
     /**
      *
-     *  ОТРИМАТИ ІНФОРМАЦІЮ ПРО НАСЕЛЕНИМ ПУНКТІ ПО ID
-     *  ПОЛУЧИТЬ ИНФОРМАЦИЮ О НАСЕЛЕННЫМ ПУНКТЕ ПО ID
-     *  GET INFORMATION ABOUT THE LOCALITY BY ID
+     * ОТРИМАТИ ІНФОРМАЦІЮ ПРО НАСЕЛЕНИМ ПУНКТІ ПО ID
+     * ПОЛУЧИТЬ ИНФОРМАЦИЮ О НАСЕЛЕННЫМ ПУНКТЕ ПО ID
+     * GET INFORMATION ABOUT THE LOCALITY BY ID
      *
-     *  @param  int  $id     ID LOCALITY
+     * @param INTEGER
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_locality_id($id)
     {
+
         return $this->requestData('get_locality_by_id', null, $id);
+
     }
     /**
      *
-     *  ОТРИМАТИ СПИСОК ОБЛАСТЕЙ ПО ФІЛЬТРУ
-     *  ПОЛУЧИТЬ СПИСОК ОБЛАСТЕЙ ПО ФИЛЬТРУ
-     *  OBTAIN A LIST OF REGIONS BY FILTER
+     * ОТРИМАТИ СПИСОК ОБЛАСТЕЙ ПО ФІЛЬТРУ
+     * ПОЛУЧИТЬ СПИСОК ОБЛАСТЕЙ ПО ФИЛЬТРУ
+     * OBTAIN A LIST OF REGIONS BY FILTER
      *
-     *  @param  array   $data   ARRAY DATA
+     * @param ARRAY
      *
-     *  @return json
+     * @return JSON
      *
      **/
-    public function get_locality_filter($data = array())
+    public function get_locality_filter($data = [])
     {
-        $argv['get_locality_filtered']['id']            = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
-        $argv['get_locality_filtered']['country_id']    = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
-        $argv['get_locality_filtered']['area_id']       = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
-        $argv['get_locality_filtered']['district_id']   = isset($data['district_name']) ? strlen($data['district_name']) > 0 ? $data['district_name'] : '' : '';
+
+        $argv['get_locality_filtered']['id'] = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
+
+        $argv['get_locality_filtered']['country_id'] = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
+
+        $argv['get_locality_filtered']['area_id'] = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
+
+        $argv['get_locality_filtered']['district_id'] = isset($data['district_id']) ? strlen($data['district_id']) > 0 ? $data['district_id'] : '' : '';
+
         $argv['get_locality_filtered']['locality_name'] = isset($data['locality_name']) ? strlen($data['locality_name']) > 0 ? $data['locality_name'] : '' : '';
 
         return $this->requestData('get_locality_filtered', $argv);
     }
     /**
      *
-     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО СКЛАДУ / ПОШТОМАТАМ
-     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СКЛАДУ / ПОЧТАМАТАМ
-     *  OBTAINING INFORMATION ON WAREHOUSE / MAILBOXES
+     * ОТРИМАННЯ ІНФОРМАЦІЇ ПО СКЛАДУ / ПОШТОМАТАМ
+     * ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО СКЛАДУ / ПОЧТАМАТАМ
+     * OBTAINING INFORMATION ON WAREHOUSE / MAILBOXES
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_branch_list()
     {
+
         return $this->requestData('get_branch_by_id', null);
+
     }
     /**
      *
-     *  ОТРИМАТИ ІНФОРМАЦІЮ ПРО СКЛАДІ / ПОШТОМАТЕ ПО ID
-     *  ПОЛУЧИТЬ ИНФОРМАЦИЮ О СКЛАДЕ / ПОЧТОМАТЕ ПО ID
-     *  GET INFORMATION ABOUT THE STOCK / MAILBOX BY ID
+     * ОТРИМАТИ ІНФОРМАЦІЮ ПРО СКЛАДІ / ПОШТОМАТЕ ПО ID
+     * ПОЛУЧИТЬ ИНФОРМАЦИЮ О СКЛАДЕ / ПОЧТОМАТЕ ПО ID
+     * GET INFORMATION ABOUT THE STOCK / MAILBOX BY ID
      *
-     *  @param     int     $id     ID BRANCH
+     * @param INTEGER
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_branch_id($id)
     {
+
         return $this->requestData('get_branch_by_id', null, $id);
+
     }
     /**
      *
-     *  ОТРИМАТИ СПИСОК СКЛАДІВ / ПОЧТОМАТОВ ПО ФІЛЬТРУ
-     *  ПОЛУЧИТЬ СПИСОК СКЛАДОВ / ПОЧТОМАТОВ ПО ФИЛЬТРУ
-     *  GET A LIST OF WAREHOUSES / MAILBOXES BY FILTER
+     * ОТРИМАТИ СПИСОК СКЛАДІВ / ПОЧТОМАТОВ ПО ФІЛЬТРУ
+     * ПОЛУЧИТЬ СПИСОК СКЛАДОВ / ПОЧТОМАТОВ ПО ФИЛЬТРУ
+     * GET A LIST OF WAREHOUSES / MAILBOXES BY FILTER
      *
-     *  @param  array   $data   ARRAY DATA
+     * @param ARRAY
      *
-     *  @return json
+     * @return JSON
      *
      **/
-    public function get_branch_filter($data = array())
+    public function get_branch_filter($data = [])
     {
-        $argv['get_branch_filtered']['id']          = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
-        $argv['get_branch_filtered']['country_id']  = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
-        $argv['get_branch_filtered']['area_id']     = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
+
+        $argv['get_branch_filtered']['id'] = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
+
+        $argv['get_branch_filtered']['country_id'] = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
+
+        $argv['get_branch_filtered']['area_id'] = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
+
         $argv['get_branch_filtered']['district_id'] = isset($data['district_id']) ? strlen($data['district_id']) > 0 ? $data['district_id'] : '' : '';
+
         $argv['get_branch_filtered']['locality_id'] = isset($data['locality_id']) ? strlen($data['locality_id']) > 0 ? $data['locality_id'] : '' : '';
+
         $argv['get_branch_filtered']['branch_name'] = isset($data['branch_name']) ? strlen($data['branch_name']) > 0 ? $data['branch_name'] : '' : '';
 
         return $this->requestData('get_branch_filtered', $argv);
     }
     /**
      *
-     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОПИСУ ВАНТАЖУ
-     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОПИСАНИЯ ГРУЗА
-     *  OBTAINING INFORMATION ON THE DESCRIPTION OF GOODS
+     * ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОПИСУ ВАНТАЖУ
+     * ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО ОПИСАНИЯ ГРУЗА
+     * OBTAINING INFORMATION ON THE DESCRIPTION OF GOODS
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_goods_desc_list()
     {
+
         return $this->requestData('get_goods_desc_by_id', null);
+
     }
     /**
      *
-     *  ОТРИМАТИ ОПИС ВАНТАЖУ ПО ID
-     *  ПОЛУЧИТЬ ОПИСАНИЕ ГРУЗА ПО ID
-     *  RECEIVE A DESCRIPTION OF THE CARGO BY ID
+     * ОТРИМАТИ ОПИС ВАНТАЖУ ПО ID
+     * ПОЛУЧИТЬ ОПИСАНИЕ ГРУЗА ПО ID
+     * RECEIVE A DESCRIPTION OF THE CARGO BY ID
      *
-     *  @param  int     $id     ID GOODS DESC
+     * @param INTEGER
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_goods_desc_id($id)
     {
+
         return $this->requestData('get_goods_desc_by_id', null, $id);
+
     }
     /**
      *
-     *  ОТРИМАННЯ ІНФОРМАЦІЇ ПО ПАКУВАННЮ
-     *  ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО УПАКОВКЕ
-     *  RECEIPT OF PACKAGING INFORMATION
+     * ОТРИМАННЯ ІНФОРМАЦІЇ ПО ПАКУВАННЮ
+     * ПОЛУЧЕНИЕ ИНФОРМАЦИИ ПО УПАКОВКЕ
+     * RECEIPT OF PACKAGING INFORMATION
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_box_list()
     {
+
         return $this->requestData('get_box_by_id', null);
+
     }
     /**
      *
-     *  ОТРИМАТИ УПАКОВКУ ПО OD
-     *  ПОЛУЧИТЬ УПАКОВКУ ПО ID
-     *  GET PACKAGING BY ID
+     * ОТРИМАТИ УПАКОВКУ ПО OD
+     * ПОЛУЧИТЬ УПАКОВКУ ПО ID
+     * GET PACKAGING BY ID
      *
-     *  @param  int     $id     ID BOX
+     * @param INTEGER
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_box_id($id)
     {
+
         return $this->requestData('get_box_by_id', null, $id);
+
     }
     /**
      *
-     *  СТВОРЕННЯ ЗАЯВКИ ТТН
-     *  СОЗДАНИЕ ЗАЯВКИ ТТН
-     *  CREATING A TTN APPLICATION
+     * СТВОРЕННЯ ЗАЯВКИ ТТН
+     * СОЗДАНИЕ ЗАЯВКИ ТТН
+     * CREATING A TTN APPLICATION
      *
-     *  @param  array   $data   DATA ARRAY
+     * @param ARRAY
      *
-     *  @return json
+     * @return JSON
      *
      **/
-    public function declaration_create($data = array())
+    public function declaration_create($data = [])
     {
-        $argv['declaration_insert_update']['locality_id']              = $data['locality_id'];
-        $argv['declaration_insert_update']['sender_warehouse']         = $data['sender_warehouse'];
-        $argv['declaration_insert_update']['sender_address']           = strlen($data['sender_address']) > 0 ? $data['sender_address'] : '';
-        $argv['declaration_insert_update']['receiver_okpo']            = strlen($data['receiver_okpo']) ? $data['receiver_okpo'] : '';
-        $argv['declaration_insert_update']['receiver_company_name']    = strlen($data['receiver_company_name']) ? $data['receiver_company_name'] : '';
-        $argv['declaration_insert_update']['receiver_cellphone']       = $data['receiver_cellphone'];
-        $argv['declaration_insert_update']['receiver_lastname']        = $data['receiver_lastname'];
-        $argv['declaration_insert_update']['receiver_firstname']       = $data['receiver_firstname'];
-        $argv['declaration_insert_update']['receiver_patronymic']      = $data['receiver_patronymic'];
-        $argv['declaration_insert_update']['receiver_locality_id']     = $data['receiver_locality_id'];
-        $argv['declaration_insert_update']['receiver_warehouse_id']    = $data['receiver_warehouse_id'];
-        $argv['declaration_insert_update']['receiver_address']         = strlen($data['receiver_address']) > 0 ? $data['receiver_address'] : '';
-        $argv['declaration_insert_update']['payment_type_id']          = $data['payment_type_id'];
-        $argv['declaration_insert_update']['payer_type_id']            = $data['payer_type_id'];
-        $argv['declaration_insert_update']['return_day']               = strlen($data['return_day']) ? $data['return_day'] : '';
-        $argv['declaration_insert_update']['cost_return']              = $data['cost_return'];
-        $argv['declaration_insert_update']['cash_on_delivery_sum']     = $data['cash_on_delivery_sum'];
-        $argv['declaration_insert_update']['client_doc_id']            = $data['client_doc_id'];
-        $argv['declaration_insert_update']['cancel_packing']           = $data['cancel_packing'];
-        $argv['declaration_insert_update']['sender_paid_sum']          = strlen($data['sender_paid_sum']) > 0 ? $data['sender_paid_sum'] : '';
-        $argv['declaration_insert_update']['third_party_okpo']         = strlen($data['third_party_okpo']) > 0 ? $data['third_party_okpo'] : '';
+
+        $argv['declaration_insert_update']['locality_id'] = $data['locality_id'];
+
+        $argv['declaration_insert_update']['sender_warehouse'] = $data['sender_warehouse'];
+
+        $argv['declaration_insert_update']['sender_address'] = strlen($data['sender_address']) > 0 ? $data['sender_address'] : '';
+
+        $argv['declaration_insert_update']['receiver_okpo'] = strlen($data['receiver_okpo']) ? $data['receiver_okpo'] : '';
+
+        $argv['declaration_insert_update']['receiver_company_name'] = strlen($data['receiver_company_name']) ? $data['receiver_company_name'] : '';
+
+        $argv['declaration_insert_update']['receiver_cellphone'] = $data['receiver_cellphone'];
+
+        $argv['declaration_insert_update']['receiver_lastname'] = $data['receiver_lastname'];
+
+        $argv['declaration_insert_update']['receiver_firstname'] = $data['receiver_firstname'];
+
+        $argv['declaration_insert_update']['receiver_patronymic'] = $data['receiver_patronymic'];
+
+        $argv['declaration_insert_update']['receiver_locality_id'] = $data['receiver_locality_id'];
+
+        $argv['declaration_insert_update']['receiver_warehouse_id'] = $data['receiver_warehouse_id'];
+
+        $argv['declaration_insert_update']['receiver_address'] = strlen($data['receiver_address']) > 0 ? $data['receiver_address'] : '';
+
+        $argv['declaration_insert_update']['payment_type_id'] = $data['payment_type_id'];
+
+        $argv['declaration_insert_update']['payer_type_id'] = $data['payer_type_id'];
+
+        $argv['declaration_insert_update']['return_day'] = strlen($data['return_day']) ? $data['return_day'] : '';
+
+        $argv['declaration_insert_update']['cost_return'] = $data['cost_return'];
+
+        $argv['declaration_insert_update']['cash_on_delivery_sum'] = $data['cash_on_delivery_sum'];
+
+        $argv['declaration_insert_update']['client_doc_id'] = $data['client_doc_id'];
+
+        $argv['declaration_insert_update']['cancel_packing'] = $data['cancel_packing'];
+
+        $argv['declaration_insert_update']['sender_paid_sum'] = strlen($data['sender_paid_sum']) > 0 ? $data['sender_paid_sum'] : '';
+
+        $argv['declaration_insert_update']['third_party_okpo'] = strlen($data['third_party_okpo']) > 0 ? $data['third_party_okpo'] : '';
+
         $argv['declaration_insert_update']['third_party_company_name'] = strlen($data['third_party_company_name']) > 0 ? $data['third_party_company_name'] : '';
-        $argv['declaration_insert_update']['third_party_cellphone']    = strlen($data['third_party_cellphone']) > 0 ? $data['third_party_cellphone'] : '';
-        $argv['declaration_insert_update']['third_party_lastname']     = strlen($data['third_party_lastname']) > 0 ? $data['third_party_lastname'] : '';
-        $argv['declaration_insert_update']['third_party_firstname']    = strlen($data['third_party_firstname']) > 0 ? $data['third_party_firstname'] : '';
-        $argv['declaration_insert_update']['third_party_patronymic']   = strlen($data['third_party_patronymic']) > 0 ? $data['third_party_patronymic'] : '';
-        $argv['declaration_insert_update']['third_patry_store_id']     = strlen($data['third_patry_store_id']) > 0 ? $data['third_patry_store_id'] : '';
-        $argv['declaration_insert_update']['third_party_address']      = strlen($data['third_party_address']) > 0 ? $data['third_party_address'] : '';
-        $argv['declaration_insert_update']['packages']                 = strlen($data['packages']) > 0 ? $data['packages'] : '';
-        $argv['declaration_insert_update']['commands']                 = strlen($data['commands'] > 0) ? $data['commands'] : '';
-        $argv['declaration_insert_update']['containers']               = strlen($data['containers']) > 0 ? $data['containers'] : '';
-        $argv['declaration_insert_update']['seats']                    = strlen($data['seats']) > 0 ? $data['seats'] : '';
+
+        $argv['declaration_insert_update']['third_party_cellphone'] = strlen($data['third_party_cellphone']) > 0 ? $data['third_party_cellphone'] : '';
+
+        $argv['declaration_insert_update']['third_party_lastname'] = strlen($data['third_party_lastname']) > 0 ? $data['third_party_lastname'] : '';
+
+        $argv['declaration_insert_update']['third_party_firstname'] = strlen($data['third_party_firstname']) > 0 ? $data['third_party_firstname'] : '';
+
+        $argv['declaration_insert_update']['third_party_patronymic'] = strlen($data['third_party_patronymic']) > 0 ? $data['third_party_patronymic'] : '';
+
+        $argv['declaration_insert_update']['third_patry_store_id'] = strlen($data['third_patry_store_id']) > 0 ? $data['third_patry_store_id'] : '';
+
+        $argv['declaration_insert_update']['third_party_address'] = strlen($data['third_party_address']) > 0 ? $data['third_party_address'] : '';
+
+        $argv['declaration_insert_update']['packages'] = strlen($data['packages']) > 0 ? $data['packages'] : '';
+
+        $argv['declaration_insert_update']['commands'] = strlen($data['commands'] > 0) ? $data['commands'] : '';
+
+        $argv['declaration_insert_update']['containers'] = strlen($data['containers']) > 0 ? $data['containers'] : '';
+
+        $argv['declaration_insert_update']['seats'] = strlen($data['seats']) > 0 ? $data['seats'] : '';
 
         return $this->requestData('declaration_insert_update', $argv);
     }
     /**
      *
-     *  РОЗРАХУНОК ВАРТОСТІ ДОСТАВКИ
-     *  РАСЧЕТ СТОИМОСТИ ДОСТАВКИ
-     *  CALCULATING THE COST OF DELIVERY
+     * РОЗРАХУНОК ВАРТОСТІ ДОСТАВКИ
+     * РАСЧЕТ СТОИМОСТИ ДОСТАВКИ
+     * CALCULATING THE COST OF DELIVERY
      *
-     *  @param array    $data   DATA ARRAY
+     * @param ARRAY
      *
-     *  @return json
+     * @return JSON
      *
      **/
-    public function declaration_calculate($data = array())
+    public function declaration_calculate($data = [])
     {
-        $argv['declaration_calculate']['p_sender_locality_id']    = $data['p_sender_locality_id'];
-        $argv['declaration_calculate']['p_sender_warehouse_id']   = strlen($data['p_sender_warehouse_id']) > 0 ? $data['p_sender_warehouse_id'] : '';
-        $argv['declaration_calculate']['p_sender_address']        = strlen($data['p_sender_address']) > 0 ? $data['p_sender_address'] : '';
-        $argv['declaration_calculate']['p_receiver_okpo']         = strlen($data['p_receiver_okpo']) > 0 ? $data['p_receiver_okpo'] : '';
+
+        $argv['declaration_calculate']['p_sender_locality_id'] = $data['p_sender_locality_id'];
+
+        $argv['declaration_calculate']['p_sender_warehouse_id'] = strlen($data['p_sender_warehouse_id']) > 0 ? $data['p_sender_warehouse_id'] : '';
+
+        $argv['declaration_calculate']['p_sender_address'] = strlen($data['p_sender_address']) > 0 ? $data['p_sender_address'] : '';
+
+        $argv['declaration_calculate']['p_receiver_okpo'] = strlen($data['p_receiver_okpo']) > 0 ? $data['p_receiver_okpo'] : '';
+
         $argv['declaration_calculate']['p_receiver_company_name'] = strlen($data['p_receiver_company_name']) > 0 ? $data['p_receiver_company_name'] : '';
-        $argv['declaration_calculate']['p_receiver_cellphone']    = $data['p_receiver_cellphone'];
-        $argv['declaration_calculate']['p_receiver_lastname']     = $data['p_receiver_lastname'];
-        $argv['declaration_calculate']['p_receiver_firstname']    = $data['p_receiver_firstname'];
-        $argv['declaration_calculate']['p_receiver_patronymic']   = strlen($data['p_receiver_patronymic']) > 0 ? $data['p_receiver_patronymic'] : '';
-        $argv['declaration_calculate']['p_receiver_locality_id']  = $data['p_receiver_locality_id'];
+
+        $argv['declaration_calculate']['p_receiver_cellphone'] = $data['p_receiver_cellphone'];
+
+        $argv['declaration_calculate']['p_receiver_lastname'] = $data['p_receiver_lastname'];
+
+        $argv['declaration_calculate']['p_receiver_firstname'] = $data['p_receiver_firstname'];
+
+        $argv['declaration_calculate']['p_receiver_patronymic'] = strlen($data['p_receiver_patronymic']) > 0 ? $data['p_receiver_patronymic'] : '';
+
+        $argv['declaration_calculate']['p_receiver_locality_id'] = $data['p_receiver_locality_id'];
+
         $argv['declaration_calculate']['p_receiver_warehouse_id'] = strlen($data['p_receiver_warehouse_id']) > 0 ? $data['p_receiver_warehouse_id'] : '';
-        $argv['declaration_calculate']['p_receiver_address']      = strlen($data['p_receiver_address']) > 0 ? $data['p_receiver_address'] : '';
-        $argv['declaration_calculate']['p_payment_type_id']       = $data['p_payment_type_id'];
-        $argv['declaration_calculate']['p_payer_type_id']         = $data['p_payer_type_id'];
-        $argv['declaration_calculate']['p_cost_return']           = $data['p_cost_return'];
-        $argv['declaration_calculate']['p_cod']                   = $data['p_cod'];
-        $argv['declaration_calculate']['p_perc_send']             = $data['p_perc_send'];
-        $argv['declaration_calculate']['p_part3_okpo']            = strlen($data['p_part3_okpo']) > 0 ? $data['p_part3_okpo'] : '';
-        $argv['declaration_calculate']['p_part3_company_name']    = strlen($data['p_part3_company_name']) > 0 ? $data['p_part3_company_name'] : '';
-        $argv['declaration_calculate']['p_part3_surname']         = strlen($data['p_part3_surname']) > 0 ? $data['p_part3_surname'] : '';
-        $argv['declaration_calculate']['p_part3_firstname']       = strlen($data['p_part3_firstname']) > 0 ? $data['p_part3_firstname'] : '';
-        $argv['declaration_calculate']['p_part3_patronymic']      = strlen($data['p_part3_patronymic']) > 0 ? $data['p_part3_patronymic'] : '';
-        $argv['declaration_calculate']['p_city_p']                = strlen($data['p_city_p']) > 0 ? $data['p_city_p'] : '';
-        $argv['declaration_calculate']['p_wh_p']                  = strlen($data['p_wh_p']) > 0 ? $data['p_wh_p'] : '';
-        $argv['declaration_calculate']['p_adress_p']              = strlen($data['p_adress_p']) > 0 ? $data['p_adress_p'] : '';
-        $argv['declaration_calculate']['p_clob_box']              = strlen($data['p_clob_box']) > 0 ? $data['p_clob_box'] : '';
-        $argv['declaration_calculate']['p_clob_comparam']         = strlen($data['p_clob_comparam']) > 0 ? $data['p_clob_comparam'] : '';
-        $argv['declaration_calculate']['p_clob_serv']             = strlen($data['p_clob_serv']) > 0 ? $data['p_clob_serv'] : '';
-        $argv['declaration_calculate']['p_clob_seats']            = strlen($data['p_clob_seats']) > 0 ? $data['p_clob_seats'] : '';
+
+        $argv['declaration_calculate']['p_receiver_address'] = strlen($data['p_receiver_address']) > 0 ? $data['p_receiver_address'] : '';
+
+        $argv['declaration_calculate']['p_payment_type_id'] = $data['p_payment_type_id'];
+
+        $argv['declaration_calculate']['p_payer_type_id'] = $data['p_payer_type_id'];
+
+        $argv['declaration_calculate']['p_cost_return'] = $data['p_cost_return'];
+
+        $argv['declaration_calculate']['p_cod'] = $data['p_cod'];
+
+        $argv['declaration_calculate']['p_perc_send'] = $data['p_perc_send'];
+
+        $argv['declaration_calculate']['p_part3_okpo'] = strlen($data['p_part3_okpo']) > 0 ? $data['p_part3_okpo'] : '';
+
+        $argv['declaration_calculate']['p_part3_company_name'] = strlen($data['p_part3_company_name']) > 0 ? $data['p_part3_company_name'] : '';
+
+        $argv['declaration_calculate']['p_part3_surname'] = strlen($data['p_part3_surname']) > 0 ? $data['p_part3_surname'] : '';
+
+        $argv['declaration_calculate']['p_part3_firstname'] = strlen($data['p_part3_firstname']) > 0 ? $data['p_part3_firstname'] : '';
+
+        $argv['declaration_calculate']['p_part3_patronymic'] = strlen($data['p_part3_patronymic']) > 0 ? $data['p_part3_patronymic'] : '';
+
+        $argv['declaration_calculate']['p_city_p'] = strlen($data['p_city_p']) > 0 ? $data['p_city_p'] : '';
+
+        $argv['declaration_calculate']['p_wh_p'] = strlen($data['p_wh_p']) > 0 ? $data['p_wh_p'] : '';
+
+        $argv['declaration_calculate']['p_adress_p'] = strlen($data['p_adress_p']) > 0 ? $data['p_adress_p'] : '';
+
+        $argv['declaration_calculate']['p_clob_box'] = strlen($data['p_clob_box']) > 0 ? $data['p_clob_box'] : '';
+
+        $argv['declaration_calculate']['p_clob_comparam'] = strlen($data['p_clob_comparam']) > 0 ? $data['p_clob_comparam'] : '';
+
+        $argv['declaration_calculate']['p_clob_serv'] = strlen($data['p_clob_serv']) > 0 ? $data['p_clob_serv'] : '';
+
+        $argv['declaration_calculate']['p_clob_seats'] = strlen($data['p_clob_seats']) > 0 ? $data['p_clob_seats'] : '';
 
         return $this->requestData('declaration_calculate', $argv, '', false);
+
     }
     /**
      *
-     *  ОТРИМАННЯ ІСТОРІЇ СТАТУСІВ ПО ТТН
-     *  ПОЛУЧЕНИЕ ИСТОРИИ СТАТУС ПО ТТН
-     *  GET A LIST OF TTN STORIES
+     * ОТРИМАННЯ ІСТОРІЇ СТАТУСІВ ПО ТТН
+     * ПОЛУЧЕНИЕ ИСТОРИИ СТАТУС ПО ТТН
+     * GET A LIST OF TTN STORIES
      *
-     *  @param  string  $number     NUMBER TTN
+     * @param STRING
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function declStatus($number)
     {
+
         $argv['decl_status_history']['decl_num'] = $number;
 
         return $this->requestData('decl_status_history', $argv);
+
     }
     /**
      *
-     *  ОТРИМАННЯ ГРАФІКУ РОБОТИ СКЛАДУ
-     *  ПОЛУЧЕНИЯ ГРАФИКА РАБОТЫ СКЛАДА
-     *  GETTING SCHEDULES FOR THE WAREHOUSE
+     * ОТРИМАННЯ ГРАФІКУ РОБОТИ СКЛАДУ
+     * ПОЛУЧЕНИЯ ГРАФИКА РАБОТЫ СКЛАДА
+     * GETTING SCHEDULES FOR THE WAREHOUSE
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_branch_work_list()
     {
+
         return $this->requestData('get_branch_work_hours', null);
+
     }
     /**
      *
-     *  ОТРИМАТИ ГРАФІК РОБОТИ СКЛАДА ПО ID
-     *  ПОЛУЧИТЬ ГРАФИК РАБОТЫ СКЛАДА ПО ID
-     *  GET THE WORK SCHEDULE OF THE WAREHOUSE BY ID
+     * ОТРИМАТИ ГРАФІК РОБОТИ СКЛАДА ПО ID
+     * ПОЛУЧИТЬ ГРАФИК РАБОТЫ СКЛАДА ПО ID
+     * GET THE WORK SCHEDULE OF THE WAREHOUSE BY ID
      *
-     *  @param  int     $id     ID BRANCH_WORK
+     * @param INTEGER
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function get_branch_work_id($id)
     {
+
         return $this->requestData('get_branch_work_hours', null, $id);
+
     }
     /**
      *
-     *  ОТРИМАТИ ІНФОРМАЦІЮ ТТН
-     *  ПОЛУЧИТЬ ИНФОРМАЦИЮ ТТН
-     *  GET TTN INFORMATION
+     * ОТРИМАТИ ІНФОРМАЦІЮ ТТН
+     * ПОЛУЧИТЬ ИНФОРМАЦИЮ ТТН
+     * GET TTN INFORMATION
      *
-     *  @param int  $number     NUMBER TTN
+     * @param INTEGER
      *
-     *  @return json
+     * @return JSON
      *
      **/
     public function getTTN($number)
     {
+
         $argv['get_ttn_by_api_key']['ttn'] = $number;
+
         return $this->requestData('get_ttn_by_api_key', $argv);
     }
 }
