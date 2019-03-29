@@ -614,7 +614,7 @@ class InTime3 implements iInTime
 
         $argv['declaration_calculate']['p_receiver_cellphone'] = $data['p_receiver_cellphone'];
 
-        $argv['declaration_calculate']['p_receiver_lastname'] = $data['p_receiver_lastname'];
+        $argv['declaration_calculate']['p_receiver_surname'] = $data['p_receiver_surname'];
 
         $argv['declaration_calculate']['p_receiver_firstname'] = $data['p_receiver_firstname'];
 
