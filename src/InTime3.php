@@ -82,11 +82,8 @@ class InTime3 implements iInTime
             [
 
                 'request.options' => [
-
                     'timeout'         => $timeout,
-
                     'connect_timeout' => $connect_timeout,
-
                 ],
 
             ]
@@ -110,7 +107,7 @@ class InTime3 implements iInTime
      * @return OBJECT
      *
      **/
-    private function setKey($api_key)
+    public function setKey($api_key)
     {
 
         $this->api_key = $api_key;
@@ -147,6 +144,21 @@ class InTime3 implements iInTime
 
         }
     }
+
+    /**
+     * @param array $fields
+     * @param array $data
+     * @return array
+     */
+    private function buildFields($fields = [], $data = []) {
+        $arr = [];
+        foreach ($fields as $field) {
+            if (isset($data[$field])) {
+                $arr[$field] = $data[$field];
+            }
+        }
+        return $arr;
+    }
     /**
      *
      * REQUEST DATA
@@ -161,6 +173,9 @@ class InTime3 implements iInTime
      **/
     private function requestData($method, $argv = array(), $id = 0, $key = true)
     {
+        $_argv[$method] = $argv;
+        $argv = $_argv;
+
         if ($key) {
 
             $argv[$method]['api_key'] = $this->api_key;
@@ -260,13 +275,9 @@ class InTime3 implements iInTime
     public function get_area_filter($data = [])
     {
 
-        $argv['get_area_filtered']['id'] = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
+        $required_array = ['id', 'country_id', 'area_name'];
 
-        $argv['get_area_filtered']['country_id'] = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
-
-        $argv['get_area_filtered']['area_name'] = isset($data['area_name']) ? strlen($data['area_name']) > 0 ? $data['area_name'] : '' : '';
-
-        return $this->requestData('get_area_filtered', $argv);
+        return $this->requestData('get_area_filtered', $this->buildFields($required_array, $data));
 
     }
     /**
@@ -314,17 +325,11 @@ class InTime3 implements iInTime
      **/
     public function get_district_filter($data = [])
     {
+        $required_array = [
+            'id', 'area_id', 'country_id', 'district_name'
+        ];
 
-        $argv['get_district_filtered']['id'] = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
-
-        $argv['get_district_filtered']['area_id'] = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
-
-        $argv['get_district_filtered']['country_id'] = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
-
-        $argv['get_district_filtered']['district_name'] = isset($data['district_name']) ? strlen($data['district_name']) > 0 ? $data['district_name'] : '' : '';
-
-        return $this->requestData('get_district_filtered', $argv);
-
+        return $this->requestData('get_district_filtered', $this->buildFields($required_array, $data));
     }
     /**
      *
@@ -372,17 +377,9 @@ class InTime3 implements iInTime
     public function get_locality_filter($data = [])
     {
 
-        $argv['get_locality_filtered']['id'] = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
+        $required_fields = ['id', 'country_id', 'area_id', 'district_id', 'locality_name'];
 
-        $argv['get_locality_filtered']['country_id'] = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
-
-        $argv['get_locality_filtered']['area_id'] = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
-
-        $argv['get_locality_filtered']['district_id'] = isset($data['district_id']) ? strlen($data['district_id']) > 0 ? $data['district_id'] : '' : '';
-
-        $argv['get_locality_filtered']['locality_name'] = isset($data['locality_name']) ? strlen($data['locality_name']) > 0 ? $data['locality_name'] : '' : '';
-
-        return $this->requestData('get_locality_filtered', $argv);
+        return $this->requestData('get_locality_filtered', $this->buildFields($required_fields, $data));
     }
     /**
      *
@@ -429,20 +426,9 @@ class InTime3 implements iInTime
      **/
     public function get_branch_filter($data = [])
     {
+        $required_fields = ['id', 'country_id', 'area_id', 'district_id', 'locality_id', 'branch_name'];
 
-        $argv['get_branch_filtered']['id'] = isset($data['id']) ? strlen($data['id']) > 0 ? $data['id'] : '' : '';
-
-        $argv['get_branch_filtered']['country_id'] = isset($data['country_id']) ? strlen($data['country_id']) > 0 ? $data['country_id'] : '' : '';
-
-        $argv['get_branch_filtered']['area_id'] = isset($data['area_id']) ? strlen($data['area_id']) > 0 ? $data['area_id'] : '' : '';
-
-        $argv['get_branch_filtered']['district_id'] = isset($data['district_id']) ? strlen($data['district_id']) > 0 ? $data['district_id'] : '' : '';
-
-        $argv['get_branch_filtered']['locality_id'] = isset($data['locality_id']) ? strlen($data['locality_id']) > 0 ? $data['locality_id'] : '' : '';
-
-        $argv['get_branch_filtered']['branch_name'] = isset($data['branch_name']) ? strlen($data['branch_name']) > 0 ? $data['branch_name'] : '' : '';
-
-        return $this->requestData('get_branch_filtered', $argv);
+        return $this->requestData('get_branch_filtered', $this->buildFields($required_fields, $data));
     }
     /**
      *
@@ -521,72 +507,42 @@ class InTime3 implements iInTime
      **/
     public function declaration_create($data = [])
     {
+        $required_fields = [
+            'locality_id',
+            'sender_warehouse',
+            'sender_address',
+            'receiver_okpo',
+            'receiver_company_name',
+            'receiver_cellphone',
+            'receiver_surname',
+            'receiver_firstname',
+            'receiver_patronymic',
+            'receiver_locality_id',
+            'receiver_warehouse_id',
+            'receiver_address',
+            'payment_type_id',
+            'payer_type_id',
+            'return_day',
+            'cost_return',
+            'cash_on_delivery_sum',
+            'client_doc_id',
+            'cancel_packing',
+            'sender_paid_sum',
+            'third_party_okpo',
+            'third_party_company_name',
+            'third_party_cellphone',
+            'third_party_lastname',
+            'third_party_firstname',
+            'third_party_patronymic',
+            'third_patry_store_id',
+            'third_party_address',
+            'packages',
+            'commands',
+            'containers',
+            'seats'
+        ];
 
-        $argv['declaration_insert_update']['locality_id'] = $data['locality_id'];
-
-        $argv['declaration_insert_update']['sender_warehouse'] = $data['sender_warehouse'];
-
-        $argv['declaration_insert_update']['sender_address'] = strlen($data['sender_address']) > 0 ? $data['sender_address'] : '';
-
-        $argv['declaration_insert_update']['receiver_okpo'] = strlen($data['receiver_okpo']) ? $data['receiver_okpo'] : '';
-
-        $argv['declaration_insert_update']['receiver_company_name'] = strlen($data['receiver_company_name']) ? $data['receiver_company_name'] : '';
-
-        $argv['declaration_insert_update']['receiver_cellphone'] = $data['receiver_cellphone'];
-
-        $argv['declaration_insert_update']['receiver_lastname'] = $data['receiver_lastname'];
-
-        $argv['declaration_insert_update']['receiver_firstname'] = $data['receiver_firstname'];
-
-        $argv['declaration_insert_update']['receiver_patronymic'] = $data['receiver_patronymic'];
-
-        $argv['declaration_insert_update']['receiver_locality_id'] = $data['receiver_locality_id'];
-
-        $argv['declaration_insert_update']['receiver_warehouse_id'] = $data['receiver_warehouse_id'];
-
-        $argv['declaration_insert_update']['receiver_address'] = strlen($data['receiver_address']) > 0 ? $data['receiver_address'] : '';
-
-        $argv['declaration_insert_update']['payment_type_id'] = $data['payment_type_id'];
-
-        $argv['declaration_insert_update']['payer_type_id'] = $data['payer_type_id'];
-
-        $argv['declaration_insert_update']['return_day'] = strlen($data['return_day']) ? $data['return_day'] : '';
-
-        $argv['declaration_insert_update']['cost_return'] = $data['cost_return'];
-
-        $argv['declaration_insert_update']['cash_on_delivery_sum'] = $data['cash_on_delivery_sum'];
-
-        $argv['declaration_insert_update']['client_doc_id'] = $data['client_doc_id'];
-
-        $argv['declaration_insert_update']['cancel_packing'] = $data['cancel_packing'];
-
-        $argv['declaration_insert_update']['sender_paid_sum'] = strlen($data['sender_paid_sum']) > 0 ? $data['sender_paid_sum'] : '';
-
-        $argv['declaration_insert_update']['third_party_okpo'] = strlen($data['third_party_okpo']) > 0 ? $data['third_party_okpo'] : '';
-
-        $argv['declaration_insert_update']['third_party_company_name'] = strlen($data['third_party_company_name']) > 0 ? $data['third_party_company_name'] : '';
-
-        $argv['declaration_insert_update']['third_party_cellphone'] = strlen($data['third_party_cellphone']) > 0 ? $data['third_party_cellphone'] : '';
-
-        $argv['declaration_insert_update']['third_party_lastname'] = strlen($data['third_party_lastname']) > 0 ? $data['third_party_lastname'] : '';
-
-        $argv['declaration_insert_update']['third_party_firstname'] = strlen($data['third_party_firstname']) > 0 ? $data['third_party_firstname'] : '';
-
-        $argv['declaration_insert_update']['third_party_patronymic'] = strlen($data['third_party_patronymic']) > 0 ? $data['third_party_patronymic'] : '';
-
-        $argv['declaration_insert_update']['third_patry_store_id'] = strlen($data['third_patry_store_id']) > 0 ? $data['third_patry_store_id'] : '';
-
-        $argv['declaration_insert_update']['third_party_address'] = strlen($data['third_party_address']) > 0 ? $data['third_party_address'] : '';
-
-        $argv['declaration_insert_update']['packages'] = strlen($data['packages']) > 0 ? $data['packages'] : '';
-
-        $argv['declaration_insert_update']['commands'] = strlen($data['commands'] > 0) ? $data['commands'] : '';
-
-        $argv['declaration_insert_update']['containers'] = strlen($data['containers']) > 0 ? $data['containers'] : '';
-
-        $argv['declaration_insert_update']['seats'] = strlen($data['seats']) > 0 ? $data['seats'] : '';
-
-        return $this->requestData('declaration_insert_update', $argv);
+        return $this->requestData('declaration_insert_update', $this->buildFields($required_fields, $data));
     }
     /**
      *
@@ -601,66 +557,39 @@ class InTime3 implements iInTime
      **/
     public function declaration_calculate($data = [])
     {
+        $required_fields = [
+            'p_sender_locality_id',
+            'p_sender_warehouse_id',
+            'p_sender_address',
+            'p_receiver_okpo',
+            'p_receiver_company_name',
+            'p_receiver_cellphone',
+            'p_receiver_surname',
+            'p_receiver_firstname',
+            'p_receiver_patronymic',
+            'p_receiver_locality_id',
+            'p_receiver_warehouse_id',
+            'p_receiver_address',
+            'p_payment_type_id',
+            'p_payer_type_id',
+            'p_cost_return',
+            'p_cod',
+            'p_perc_send',
+            'p_part3_okpo',
+            'p_part3_company_name',
+            'p_part3_surname',
+            'p_part3_firstname',
+            'p_part3_patronymic',
+            'p_city_p',
+            'p_wh_p',
+            'p_adress_p',
+            'p_clob_box',
+            'p_clob_comparam',
+            'p_clob_serv',
+            'p_clob_seats'
+        ];
 
-        $argv['declaration_calculate']['p_sender_locality_id'] = $data['p_sender_locality_id'];
-
-        $argv['declaration_calculate']['p_sender_warehouse_id'] = strlen($data['p_sender_warehouse_id']) > 0 ? $data['p_sender_warehouse_id'] : '';
-
-        $argv['declaration_calculate']['p_sender_address'] = strlen($data['p_sender_address']) > 0 ? $data['p_sender_address'] : '';
-
-        $argv['declaration_calculate']['p_receiver_okpo'] = strlen($data['p_receiver_okpo']) > 0 ? $data['p_receiver_okpo'] : '';
-
-        $argv['declaration_calculate']['p_receiver_company_name'] = strlen($data['p_receiver_company_name']) > 0 ? $data['p_receiver_company_name'] : '';
-
-        $argv['declaration_calculate']['p_receiver_cellphone'] = $data['p_receiver_cellphone'];
-
-        $argv['declaration_calculate']['p_receiver_surname'] = $data['p_receiver_surname'];
-
-        $argv['declaration_calculate']['p_receiver_firstname'] = $data['p_receiver_firstname'];
-
-        $argv['declaration_calculate']['p_receiver_patronymic'] = strlen($data['p_receiver_patronymic']) > 0 ? $data['p_receiver_patronymic'] : '';
-
-        $argv['declaration_calculate']['p_receiver_locality_id'] = $data['p_receiver_locality_id'];
-
-        $argv['declaration_calculate']['p_receiver_warehouse_id'] = strlen($data['p_receiver_warehouse_id']) > 0 ? $data['p_receiver_warehouse_id'] : '';
-
-        $argv['declaration_calculate']['p_receiver_address'] = strlen($data['p_receiver_address']) > 0 ? $data['p_receiver_address'] : '';
-
-        $argv['declaration_calculate']['p_payment_type_id'] = $data['p_payment_type_id'];
-
-        $argv['declaration_calculate']['p_payer_type_id'] = $data['p_payer_type_id'];
-
-        $argv['declaration_calculate']['p_cost_return'] = $data['p_cost_return'];
-
-        $argv['declaration_calculate']['p_cod'] = $data['p_cod'];
-
-        $argv['declaration_calculate']['p_perc_send'] = $data['p_perc_send'];
-
-        $argv['declaration_calculate']['p_part3_okpo'] = strlen($data['p_part3_okpo']) > 0 ? $data['p_part3_okpo'] : '';
-
-        $argv['declaration_calculate']['p_part3_company_name'] = strlen($data['p_part3_company_name']) > 0 ? $data['p_part3_company_name'] : '';
-
-        $argv['declaration_calculate']['p_part3_surname'] = strlen($data['p_part3_surname']) > 0 ? $data['p_part3_surname'] : '';
-
-        $argv['declaration_calculate']['p_part3_firstname'] = strlen($data['p_part3_firstname']) > 0 ? $data['p_part3_firstname'] : '';
-
-        $argv['declaration_calculate']['p_part3_patronymic'] = strlen($data['p_part3_patronymic']) > 0 ? $data['p_part3_patronymic'] : '';
-
-        $argv['declaration_calculate']['p_city_p'] = strlen($data['p_city_p']) > 0 ? $data['p_city_p'] : '';
-
-        $argv['declaration_calculate']['p_wh_p'] = strlen($data['p_wh_p']) > 0 ? $data['p_wh_p'] : '';
-
-        $argv['declaration_calculate']['p_adress_p'] = strlen($data['p_adress_p']) > 0 ? $data['p_adress_p'] : '';
-
-        $argv['declaration_calculate']['p_clob_box'] = strlen($data['p_clob_box']) > 0 ? $data['p_clob_box'] : '';
-
-        $argv['declaration_calculate']['p_clob_comparam'] = strlen($data['p_clob_comparam']) > 0 ? $data['p_clob_comparam'] : '';
-
-        $argv['declaration_calculate']['p_clob_serv'] = strlen($data['p_clob_serv']) > 0 ? $data['p_clob_serv'] : '';
-
-        $argv['declaration_calculate']['p_clob_seats'] = strlen($data['p_clob_seats']) > 0 ? $data['p_clob_seats'] : '';
-
-        return $this->requestData('declaration_calculate', $argv, '', false);
+        return $this->requestData('declaration_calculate', $this->buildFields($required_fields, $data), '', false);
 
     }
     /**
