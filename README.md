@@ -10,7 +10,7 @@ PHP класс для работы с почтой Intime
 
 # Требование
 
-* PHP не ниже 5.6
+* PHP не ниже 7.0
 * Composer
 
 # Composer
