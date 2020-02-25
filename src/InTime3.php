@@ -705,9 +705,10 @@ class InTime3 implements iInTime
     public function getTTN($number)
     {
 
-        $argv['get_ttn_by_api_key']['ttn'] = $number;
+        $argv['info_tn']['decl_num'] = $number;
 
-        return $this->requestData('get_ttn_by_api_key', $argv);
+        return $this->requestData('info_tn', $argv);
+
     }
     /**
      *
