@@ -37,7 +37,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_country_list();
+    public function getCountryList();
     /**
      *
      *  ОТРИМАТИ ІНФОРМАЦІЮ ПРО КРАЇНУ ПО ID
@@ -49,7 +49,7 @@ interface iInTime
      *  @return JSON
      *
      **/
-    public function get_country_id($id);
+    public function getCountryId($id);
     /**
      *
      * ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОБЛАСТЯМ
@@ -59,7 +59,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_area_list();
+    public function getAreaList();
     /**
      *
      * ОТРИМАТИ ІНФОРМАЦІЮ ПРО ОБЛАСТЬ ПО ID
@@ -71,7 +71,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_area_id($id);
+    public function getAreaId($id);
     /**
      *
      * ОТРИМАТИ СПИСОК ОБЛАСТЕЙ ПО ФІЛЬТРУ
@@ -83,7 +83,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_area_filter($data = []);
+    public function getAreaFilter($data = []);
     /**
      *
      * ОТРИМАННЯ ІНФОРМАЦІЇ ПО РАЙОНАМ
@@ -93,7 +93,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_district_list();
+    public function getDistrictList();
     /**
      *
      * ОТРИМАТИ ІНФОРМАЦІЮ ПРО РАЙОНІ ПО ID
@@ -105,7 +105,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_district_id($id);
+    public function getDistrictId($id);
     /**
      *
      * ОТРИМАТИ СПИСОК РАЙОНІВ ПО ФІЛЬТРУ
@@ -117,7 +117,7 @@ interface iInTime
      * @return json
      *
      **/
-    public function get_district_filter($data = []);
+    public function getDistrictFilter($data = []);
     /**
      *
      * ОТРИМАННЯ ІНФОРМАЦІЇ ПО НАСЕЛЕНОМУ ПУНКТУ
@@ -127,7 +127,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_locality_list();
+    public function getLocalityList();
     /**
      *
      * ОТРИМАТИ ІНФОРМАЦІЮ ПРО НАСЕЛЕНИМ ПУНКТІ ПО ID
@@ -139,7 +139,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_locality_id($id);
+    public function getLocalityId($id);
     /**
      *
      * ОТРИМАТИ СПИСОК ОБЛАСТЕЙ ПО ФІЛЬТРУ
@@ -151,7 +151,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_locality_filter($data = []);
+    public function getLocalityFilter($data = []);
     /**
      *
      * ОТРИМАННЯ ІНФОРМАЦІЇ ПО СКЛАДУ / ПОШТОМАТАМ
@@ -161,7 +161,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_branch_list();
+    public function getBranchList();
     /**
      *
      * ОТРИМАТИ ІНФОРМАЦІЮ ПРО СКЛАДІ / ПОШТОМАТЕ ПО ID
@@ -173,7 +173,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_branch_id($id);
+    public function getBranchId($id);
     /**
      *
      * ОТРИМАТИ СПИСОК СКЛАДІВ / ПОЧТОМАТОВ ПО ФІЛЬТРУ
@@ -185,7 +185,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_branch_filter($data = []);
+    public function getBranchFilter($data = []);
     /**
      *
      * ОТРИМАННЯ ІНФОРМАЦІЇ ПО ОПИСУ ВАНТАЖУ
@@ -195,7 +195,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_goods_desc_list();
+    public function getGoodsDescList();
     /**
      *
      * ОТРИМАТИ ОПИС ВАНТАЖУ ПО ID
@@ -207,7 +207,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_goods_desc_id($id);
+    public function getGoodsDescId($id);
     /**
      *
      * ОТРИМАННЯ ІНФОРМАЦІЇ ПО ПАКУВАННЮ
@@ -217,7 +217,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_box_list();
+    public function getBoxList();
     /**
      *
      * ОТРИМАТИ УПАКОВКУ ПО OD
@@ -229,7 +229,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_box_id($id);
+    public function getBoxId($id);
     /**
      *
      * СТВОРЕННЯ ЗАЯВКИ ТТН
@@ -241,7 +241,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function declaration_create($data = []);
+    public function declarationCreate($data = []);
     /**
      *
      * РОЗРАХУНОК ВАРТОСТІ ДОСТАВКИ
@@ -253,7 +253,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function declaration_calculate($data = []);
+    public function declarationCalculate($data = []);
     /**
      *
      * ОТРИМАННЯ ІСТОРІЇ СТАТУСІВ ПО ТТН
@@ -275,7 +275,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_branch_work_list();
+    public function getBranchWorkList();
     /**
      *
      * ОТРИМАТИ ГРАФІК РОБОТИ СКЛАДА ПО ID
@@ -287,7 +287,7 @@ interface iInTime
      * @return JSON
      *
      **/
-    public function get_branch_work_id($id);
+    public function getBranchWorkId($id);
     /**
      *
      * ОТРИМАТИ ІНФОРМАЦІЮ ТТН
@@ -300,4 +300,17 @@ interface iInTime
      *
      **/
     public function getTTN($number);
+    /**
+     *
+     * СТВОРЕННЯ МІСЦЯ
+     * СОЗДАНИЕ МЕСТА
+     * CREATE SEAT
+     *
+     * @param ARRAY $data
+     *
+     * @return ARRAY
+     *
+     */
+    public function createSeat($data);
+
 }

@@ -15,6 +15,7 @@ use Meng\AsyncSoap\Guzzle\Factory;
  **/
 class InTime3 implements iInTime
 {
+
     /**
      * API KEY
      *
@@ -146,18 +147,32 @@ class InTime3 implements iInTime
     }
 
     /**
-     * @param array $fields
-     * @param array $data
-     * @return array
+     *
+     * BUILD ARRAY DATA
+     *
+     * @param ARRAY $fields
+     * @param ARRAY $data
+     *
+     * @return ARRAY
+     *
      */
-    private function buildFields($fields = [], $data = []) {
+    private function buildFields($fields = [], $data = [])
+    {
+
         $arr = [];
+
         foreach ($fields as $field) {
+
             if (isset($data[$field])) {
+
                 $arr[$field] = $data[$field];
+
             }
+
         }
+
         return $arr;
+
     }
     /**
      *
@@ -174,7 +189,7 @@ class InTime3 implements iInTime
     private function requestData($method, $argv = array(), $id = 0, $key = true)
     {
         $_argv[$method] = $argv;
-        $argv = $_argv;
+        $argv           = $_argv;
 
         if ($key) {
 
@@ -206,7 +221,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_country_list()
+    public function getCountryList()
     {
 
         return $this->requestData('get_country_by_id', null);
@@ -223,7 +238,7 @@ class InTime3 implements iInTime
      *  @return JSON
      *
      **/
-    public function get_country_id($id)
+    public function getCountryId($id)
     {
 
         return $this->requestData('get_country_by_id', null, $id);
@@ -238,7 +253,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_area_list()
+    public function getAreaList()
     {
 
         return $this->requestData('get_area_by_id', null);
@@ -255,7 +270,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_area_id($id)
+    public function getAreaId($id)
     {
 
         return $this->requestData('get_area_by_id', null, $id);
@@ -272,10 +287,16 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_area_filter($data = [])
+    public function getAreaFilter($data = [])
     {
 
-        $required_array = ['id', 'country_id', 'area_name'];
+        $required_array = [
+
+            'id',
+            'country_id',
+            'area_name',
+
+        ];
 
         return $this->requestData('get_area_filtered', $this->buildFields($required_array, $data));
 
@@ -289,7 +310,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_district_list()
+    public function getDistrictList()
     {
 
         return $this->requestData('get_district_by_id', null);
@@ -306,7 +327,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_district_id($id)
+    public function getDistrictId($id)
     {
 
         return $this->requestData('get_district_by_id', null, $id);
@@ -323,10 +344,15 @@ class InTime3 implements iInTime
      * @return json
      *
      **/
-    public function get_district_filter($data = [])
+    public function getDistrictFilter($data = [])
     {
         $required_array = [
-            'id', 'area_id', 'country_id', 'district_name'
+
+            'id',
+            'area_id',
+            'country_id',
+            'district_name',
+
         ];
 
         return $this->requestData('get_district_filtered', $this->buildFields($required_array, $data));
@@ -340,7 +366,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_locality_list()
+    public function getLocalityList()
     {
 
         return $this->requestData('get_locality_all', null);
@@ -357,7 +383,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_locality_id($id)
+    public function getLocalityId($id)
     {
 
         return $this->requestData('get_locality_by_id', null, $id);
@@ -374,10 +400,18 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_locality_filter($data = [])
+    public function getLocalityFilter($data = [])
     {
 
-        $required_fields = ['id', 'country_id', 'area_id', 'district_id', 'locality_name'];
+        $required_fields = [
+
+            'id',
+            'country_id',
+            'area_id',
+            'district_id',
+            'locality_name',
+
+        ];
 
         return $this->requestData('get_locality_filtered', $this->buildFields($required_fields, $data));
     }
@@ -390,7 +424,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_branch_list()
+    public function getBranchList()
     {
 
         return $this->requestData('get_branch_by_id', null);
@@ -407,7 +441,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_branch_id($id)
+    public function getBranchId($id)
     {
 
         return $this->requestData('get_branch_by_id', null, $id);
@@ -424,9 +458,18 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_branch_filter($data = [])
+    public function getBranchFilter($data = [])
     {
-        $required_fields = ['id', 'country_id', 'area_id', 'district_id', 'locality_id', 'branch_name'];
+        $required_fields = [
+
+            'id',
+            'country_id',
+            'area_id',
+            'district_id',
+            'locality_id',
+            'branch_name',
+
+        ];
 
         return $this->requestData('get_branch_filtered', $this->buildFields($required_fields, $data));
     }
@@ -439,7 +482,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_goods_desc_list()
+    public function getGoodsDescList()
     {
 
         return $this->requestData('get_goods_desc_by_id', null);
@@ -456,7 +499,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_goods_desc_id($id)
+    public function getGoodsDescId($id)
     {
 
         return $this->requestData('get_goods_desc_by_id', null, $id);
@@ -471,7 +514,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_box_list()
+    public function getBoxList()
     {
 
         return $this->requestData('get_box_by_id', null);
@@ -488,7 +531,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_box_id($id)
+    public function getBoxId($id)
     {
 
         return $this->requestData('get_box_by_id', null, $id);
@@ -505,11 +548,13 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function declaration_create($data = [])
+    public function declarationCreate($data = [])
     {
+
         $required_fields = [
+
             'locality_id',
-            'sender_warehouse',
+            'sender_warehouse_id',
             'sender_address',
             'receiver_okpo',
             'receiver_company_name',
@@ -539,10 +584,13 @@ class InTime3 implements iInTime
             'packages',
             'commands',
             'containers',
-            'seats'
+            'seats',
+
         ];
 
-        return $this->requestData('declaration_insert_update', $this->buildFields($required_fields, $data));
+        return $this->buildFields($required_fields, $data);
+
+        // return $this->requestData('declaration_insert_update', $this->buildFields($required_fields, $data));
     }
     /**
      *
@@ -555,7 +603,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function declaration_calculate($data = [])
+    public function declarationCalculate($data = [])
     {
         $required_fields = [
             'p_sender_locality_id',
@@ -586,7 +634,7 @@ class InTime3 implements iInTime
             'p_clob_box',
             'p_clob_comparam',
             'p_clob_serv',
-            'p_clob_seats'
+            'p_clob_seats',
         ];
 
         return $this->requestData('declaration_calculate', $this->buildFields($required_fields, $data), '', false);
@@ -620,7 +668,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_branch_work_list()
+    public function getBranchWorkList()
     {
 
         return $this->requestData('get_branch_work_hours', null);
@@ -637,7 +685,7 @@ class InTime3 implements iInTime
      * @return JSON
      *
      **/
-    public function get_branch_work_id($id)
+    public function getBranchWorkId($id)
     {
 
         return $this->requestData('get_branch_work_hours', null, $id);
@@ -660,5 +708,42 @@ class InTime3 implements iInTime
         $argv['get_ttn_by_api_key']['ttn'] = $number;
 
         return $this->requestData('get_ttn_by_api_key', $argv);
+    }
+    /**
+     *
+     * СТВОРЕННЯ МІСЦЯ
+     * СОЗДАНИЕ МЕСТА
+     * CREATE SEAT
+     *
+     * @param ARRAY $data
+     *
+     * @return ARRAY
+     *
+     */
+    public function createSeat($data): array
+    {
+
+        $required_array = [
+
+            'Goods_type_id',
+            'Weight_m',
+            'Length_m',
+            'Width_m',
+            'Height_m',
+            'Weight_r',
+            'Gsize_r',
+            'Count_m',
+            'Goods_type_descr_id',
+            'Box_id',
+            'SN',
+
+        ];
+
+        return $this->buildFields(
+
+            $required_array, $data
+
+        );
+
     }
 }
